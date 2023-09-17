@@ -21,3 +21,7 @@ My goal is try write my notes in [mdbook](https://github.com/rust-lang/mdBook/tr
 #### Preprossers
 - [mdbook-mermaid](https://github.com/badboy/mdbook-mermaid)
 - [mdbook-admonish](https://github.com/tommilligan/mdbook-admonish)
+
+
+## General Info
+A [spanish keyboard layout](https://www.spanishdict.com/guide/how-to-type-spanish-accents-and-letters) overview
