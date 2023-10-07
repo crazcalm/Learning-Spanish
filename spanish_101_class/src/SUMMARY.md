@@ -12,3 +12,4 @@
     - [vocabulary](./book/chapter_1/vocabulary.md)
     - [dialogues]()
     - [homework](./book/book_homework/chapter1.md)
+  - [Take Home Homework](./book/chapter_1/take_home_homework.md)
