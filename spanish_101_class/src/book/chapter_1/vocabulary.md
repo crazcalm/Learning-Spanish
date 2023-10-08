@@ -42,4 +42,14 @@ When saying "goodbye" we may use the following expressions:
 	+ (Very) well
 - (Muy) mal
 	+ (Very) bad
-- 
+
+
+# Other words used in the Chapter
+
+|Word | Meaning|
+|---|---|
+|simpático| nice, likeable, pleasant, friendly|
+|divertido|fun, entertaining, funny (causing laughter)|
+|estudioso| studious, scholar|
+|estudiar| to study (transitive verb)|
+|carro| car|
