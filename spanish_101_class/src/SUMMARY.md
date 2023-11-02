@@ -20,3 +20,4 @@
     - [Present Tense](./book/chapter_2/present_tense.md)
     - [Nouns and Articles](./book/chapter_2/nouns_and_articles.md)
     - [Descriptive Adjectives and Adjectives of Nationality](./book/chapter_2/decriptive_adjectives_and_adjectives_of_nationality.md)
+    - [The Verb Gustar and Encantar](./book/chapter_2/the_verb_gustar_and_encantar.md)
