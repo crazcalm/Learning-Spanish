@@ -21,3 +21,8 @@
     - [Nouns and Articles](./book/chapter_2/nouns_and_articles.md)
     - [Descriptive Adjectives and Adjectives of Nationality](./book/chapter_2/decriptive_adjectives_and_adjectives_of_nationality.md)
     - [The Verb Gustar and Encantar](./book/chapter_2/the_verb_gustar_and_encantar.md)
+    - [The Days of the Week](./book/chapter_2/the_days_of_the_week.md)
+    - [The Months of the Year](./book/chapter_2/the_months_of_the_year.md)
+- [Chapter 3]()
+  - [Book Notes]()
+    - [Demonstrative Adjectives](./book/chapter_3/demonstrative_adjectives.md)
