@@ -26,3 +26,4 @@
 - [Chapter 3]()
   - [Book Notes]()
     - [Demonstrative Adjectives](./book/chapter_3/demonstrative_adjectives.md)
+    - [Demonstative Pronouns](./book/chapter_3/demonstrative_pronouns.md)
