@@ -27,3 +27,8 @@
   - [Book Notes]()
     - [Demonstrative Adjectives](./book/chapter_3/demonstrative_adjectives.md)
     - [Demonstative Pronouns](./book/chapter_3/demonstrative_pronouns.md)
+
+----
+- [Mango Languages]()
+  - [Chapter 2]()
+    - [Places and Directions](./mango_languages/chapter_2/places_and_directions.md)
