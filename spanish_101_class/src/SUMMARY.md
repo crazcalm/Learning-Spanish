@@ -32,3 +32,4 @@
 - [Mango Languages]()
   - [Chapter 2]()
     - [Places and Directions](./mango_languages/chapter_2/places_and_directions.md)
+	- [Currency and Counting](./mango_languages/chapter_2/currency_and_counting.md)
