@@ -5,7 +5,7 @@ A place to keep my Spanish Notes.
 I am taking a developer that is taking a Spanish 101 course later in life. Due to my professional habits, it is hard to take notes in a traditional manner.
 
 ## My Notes
-I am going to try to write my notes using mdbook.
+I am going to try to write my notes using mdbook. Here is my [github pages link](https://crazcalm.github.io/Learning-Spanish/)
 
 ### Rending book
 ```
