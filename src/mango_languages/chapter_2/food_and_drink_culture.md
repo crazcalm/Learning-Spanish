@@ -519,4 +519,86 @@ In English, we can use the verb "to have" to talke about eating and drinking, li
 - ¿Te gustaría comer pescado para la cena?
   - Would you like to have fish for dinner?
 
-Left off at 33/49
+- ¿Qué te gustaría comer?
+  - What would you like to eat?
+  
+- ensalada
+  - salad
+
+- ¡Está caluroso!
+  - It's hot!
+
+- Me gusta comer ensalada cuando está caluroso.
+  - I like to eat salad when it's hot.
+
+## Lesson 13
+
+- crema
+  - cream
+
+- ¿Quiere crema en su café?
+  - Do you want cream in your coffee?
+
+- No, gracias. No me gusta el café con crema.
+  - No, thanks. I don't like coffee with cream.
+
+- leche
+  - milk
+
+- Me gusta el café con leche.
+  - I like coffee with milk.
+
+## Lesson 14
+
+- Bate los huevos en el tazón.
+  - Beat the eggs in the bowl.
+
+- batir
+  - to beat / to whisk (verb)
+
+- bate
+  - beat [imperative] (informal)
+
+- huevo
+  - egg
+
+- bate los huevos
+  - beat the eggs
+
+- tazón
+  - bowl
+
+- en el tazón
+  - in the bowl
+
+- verter
+  - to pour (verb)
+
+- vierte 
+  - pour [imperative] (informal)
+
+- Vierte los huevos
+  - Pour the eggs
+
+- sartén
+  - pan
+  
+- caliente
+  - hot
+
+```admonish note
+Grammar Note
+
+The word "caliente" means "hot," and is used to describe the temperature of objects. The word "caluroso" is also an adjective that means "hot," but it is used almost exclusively with referring to the weather. Therefore, you can say "Es un día caluroso" (It's a hot day), but you cannot say *Lost huevos están calurosos. You have to say "Lost huevos están calientes." (The eggs are hot.)
+```
+
+- Vierte los huevos en la sartén caliente.
+  - Pour the eggs in the hot pan.
+
+- doblar
+  - to turn (verb)
+
+- dobla
+  - turn [imperative] (informal)
+
+Left off at 31/48
