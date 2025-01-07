@@ -1,0 +1,1099 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Currency and Counting</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+        <link rel="stylesheet" href="../../mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="currency-and-counting"><a class="header" href="#currency-and-counting">Currency and Counting</a></h1>
+<h2 id="lesson-1"><a class="header" href="#lesson-1">Lesson 1</a></h2>
+<ul>
+<li>
+<p>¿Tiene mapas?</p>
+<ul>
+<li>Do you have maps</li>
+</ul>
+</li>
+<li>
+<p>tener</p>
+<ul>
+<li>to have (verb)</li>
+</ul>
+</li>
+<li>
+<p>tiene</p>
+<ul>
+<li>(you) have (formal)</li>
+</ul>
+</li>
+<li>
+<p>Tengo un mapa</p>
+<ul>
+<li>I have one map</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Uno (one) is only used when we count numbers. To say "one" followed by a noun, as in "one map", you use the singular article un or una.
+</code></pre>
+<ul>
+<li>
+<p>por allí</p>
+<ul>
+<li>over there</li>
+</ul>
+</li>
+<li>
+<p>Los mapas están por allí</p>
+<ul>
+<li>The maps are over there.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Did you use the correct article los? Remember that although mapa ends in -a, it is a masculine noun.
+</code></pre>
+<ul>
+<li>
+<p>Aquí tiene</p>
+<ul>
+<li>Here you are (formal)</li>
+</ul>
+</li>
+<li>
+<p>postal</p>
+<ul>
+<li>postcard</li>
+</ul>
+</li>
+<li>
+<p>Tengo tres postales</p>
+<ul>
+<li>I have three postcards</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+In Spanish, to make the plural of a noun that ends with a consonant, you have to add -es to the end of the noun. That's why the plural of postal is postales.
+</code></pre>
+<ul>
+<li>
+<p>Las postales están aquí y los mapas están por allí.</p>
+<ul>
+<li>The postcards are here, and the maps are over there.</li>
+</ul>
+</li>
+<li>
+<p>¿Tiene más mapas?</p>
+<ul>
+<li>Do you have more maps?</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Up to now you had learned that poco means "a little bit." However, when it is used in plural, pocos, it means "few" or "a few." You can say Estoy un poco cansado (I'm a little bit tired) and use poco in the singular. Or Tengo pocos amigos (I have a few friends), and use pocos in the plural form.
+</code></pre>
+<ul>
+<li>
+<p>pocos mapas</p>
+<ul>
+<li>a few maps</li>
+</ul>
+</li>
+<li>
+<p>pocas postales</p>
+<ul>
+<li>a few postcards</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Poco also needs to agree in gender with the noun. Therefore, here you say pocas postales instead of *pocos postales.
+</code></pre>
+<ul>
+<li>
+<p>Tengo pocas postales y pocos mapas.</p>
+<ul>
+<li>I have a few postcards and a few maps.</li>
+</ul>
+</li>
+<li>
+<p>Quiero más postales de México.</p>
+</li>
+<li>
+<p>I want more postcards from Mexico</p>
+</li>
+<li>
+<p>Tengo cuatro postales más.</p>
+<ul>
+<li>I have four more postcards</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-2"><a class="header" href="#lesson-2">Lesson 2</a></h2>
+<ul>
+<li>
+<p>algo más</p>
+<ul>
+<li>anything else</li>
+</ul>
+</li>
+<li>
+<p>quiere</p>
+<ul>
+<li>(you) want (formal)</li>
+</ul>
+</li>
+<li>
+<p>¿Quiere algo más?</p>
+<ul>
+<li>Do you want anything else?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-3"><a class="header" href="#lesson-3">Lesson 3</a></h2>
+<ul>
+<li>
+<p>¿Cuánto cuesta?</p>
+<ul>
+<li>How much does it cost?</li>
+</ul>
+</li>
+<li>
+<p>cuánto</p>
+<ul>
+<li>how much</li>
+</ul>
+</li>
+<li>
+<p>costar</p>
+<ul>
+<li>to cost (verb)</li>
+</ul>
+</li>
+<li>
+<p>cuesta</p>
+<ul>
+<li>(it) costs</li>
+</ul>
+</li>
+<li>
+<p>¿Cuánto es?</p>
+<ul>
+<li>How much is it?</li>
+</ul>
+</li>
+<li>
+<p>boleto</p>
+<ul>
+<li>ticket</li>
+</ul>
+</li>
+<li>
+<p>cuestan</p>
+<ul>
+<li>they cost</li>
+</ul>
+</li>
+<li>
+<p>¿Cuánto cuestan tres boletos?</p>
+<ul>
+<li>How much do three tickets cost?</li>
+</ul>
+</li>
+<li>
+<p>este</p>
+<ul>
+<li>this</li>
+</ul>
+</li>
+<li>
+<p>libro</p>
+<ul>
+<li>book</li>
+</ul>
+</li>
+<li>
+<p>¿Cuánto cuesta este libro?</p>
+<ul>
+<li>How much does this book cost?</li>
+</ul>
+</li>
+<li>
+<p>estos</p>
+<ul>
+<li>these</li>
+</ul>
+</li>
+<li>
+<p>¿Cuánto cuestan estos?</p>
+<ul>
+<li>How much do these cost?</li>
+</ul>
+</li>
+<li>
+<p>dinero</p>
+<ul>
+<li>money</li>
+</ul>
+</li>
+<li>
+<p>¿Cuánto dinero tiene?</p>
+<ul>
+<li>How much money do you have?</li>
+</ul>
+</li>
+<li>
+<p>mucho</p>
+<ul>
+<li>a lot</li>
+</ul>
+</li>
+<li>
+<p>No tengo mucho dinero</p>
+<ul>
+<li>I don't have a lot of money.</li>
+</ul>
+</li>
+<li>
+<p>cuántos</p>
+<ul>
+<li>how many</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Remember that cuántos has to agree with the noun it modifies.
+</code></pre>
+<ul>
+<li>¿Cuántas postales quiere?
+<ul>
+<li>How many postcards do you want?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-4"><a class="header" href="#lesson-4">Lesson 4</a></h2>
+<ul>
+<li>
+<p>Cuesta cinco pesos con cincuenta centavos.</p>
+<ul>
+<li>It costs five pesos and fifty cents.</li>
+</ul>
+</li>
+<li>
+<p>peso</p>
+<ul>
+<li>peso</li>
+</ul>
+</li>
+<li>
+<p>cinco pesos</p>
+<ul>
+<li>five pesos</li>
+</ul>
+</li>
+<li>
+<p>cincuenta</p>
+<ul>
+<li>fifty</li>
+</ul>
+</li>
+<li>
+<p>centavo</p>
+<ul>
+<li>cent</li>
+</ul>
+</li>
+<li>
+<p>cincuenta centavos</p>
+<ul>
+<li>50 cents</li>
+</ul>
+</li>
+<li>
+<p>con</p>
+<ul>
+<li>with</li>
+</ul>
+</li>
+<li>
+<p>cinco pesos con cincuenta centavos</p>
+<ul>
+<li>5 pesos and 50 cents</li>
+</ul>
+</li>
+<li>
+<p>cargador</p>
+<ul>
+<li>charger</li>
+</ul>
+</li>
+<li>
+<p>once (11)</p>
+<ul>
+<li>eleven</li>
+</ul>
+</li>
+<li>
+<p>el cargador cuesta once pesos.</p>
+<ul>
+<li>The charger costs 11 pesos</li>
+</ul>
+</li>
+<li>
+<p>tarjeta SIM</p>
+<ul>
+<li>SIM card</li>
+</ul>
+</li>
+<li>
+<p>La tarjeta SIM cuesta dos pesos.</p>
+<ul>
+<li>The SIM card costs 2 pesos.</li>
+</ul>
+</li>
+<li>
+<p>El cargador cuesta once pesos y la terjeta SIM dos.</p>
+<ul>
+<li>The charger costs 11 pesos and the SIM card 2</li>
+</ul>
+</li>
+<li>
+<p>trece (13)</p>
+<ul>
+<li>thirteen</li>
+</ul>
+</li>
+<li>
+<p>total</p>
+<ul>
+<li>total</li>
+</ul>
+</li>
+<li>
+<p>Es un total de 13 pesos.</p>
+<ul>
+<li>It's a total of 13 pesos.</li>
+</ul>
+</li>
+<li>
+<p>más (+)</p>
+<ul>
+<li>plus</li>
+</ul>
+</li>
+<li>
+<p>once pesos más dos pesos es un total de trece pesos.</p>
+<ul>
+<li>11 pesos plus 2 peses is a total of 13 pesos</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-5"><a class="header" href="#lesson-5">Lesson 5</a></h2>
+<ul>
+<li>
+<p>repelente de insectos</p>
+<ul>
+<li>insect repellent</li>
+</ul>
+</li>
+<li>
+<p>El repelente de insector cuesta seis pesos.</p>
+<ul>
+<li>The insect repellent costs 6 pesos.</li>
+</ul>
+</li>
+<li>
+<p>por (X)</p>
+<ul>
+<li>times (multiplication)</li>
+</ul>
+</li>
+<li>
+<p>seis por dos</p>
+<ul>
+<li>6 times 2</li>
+</ul>
+</li>
+<li>
+<p>doce (12)</p>
+<ul>
+<li>twelve</li>
+</ul>
+</li>
+<li>
+<p>seis pesos por dos son doce pesos.</p>
+<ul>
+<li>6 pesos times 2 are 12 pesos</li>
+</ul>
+</li>
+<li>
+<p>cuaderno</p>
+<ul>
+<li>notebook</li>
+</ul>
+</li>
+<li>
+<p>cada uno</p>
+<ul>
+<li>each</li>
+</ul>
+</li>
+<li>
+<p>El cuaderno cuesta siete peses cada uno</p>
+<ul>
+<li>The notebook costs 7 pesos each</li>
+</ul>
+</li>
+<li>
+<p>catorce (14)</p>
+<ul>
+<li>fourteen</li>
+</ul>
+</li>
+<li>
+<p>El cuaderno cuesta siets pesos cada uno. Siete por dos es catorce.</p>
+<ul>
+<li>The notebook costs 7 pesos each. 7 times 2 is 14.</li>
+</ul>
+</li>
+<li>
+<p>dividido por (:)</p>
+<ul>
+<li>divided by (/)</li>
+</ul>
+</li>
+<li>
+<p>Catorce dividido por dos es siete. Cada cuaderno cuesta siete pesos</p>
+<ul>
+<li>14 divided by 2 is 7. Each notebook costs 7 pesos.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-6"><a class="header" href="#lesson-6">Lesson 6</a></h2>
+<ul>
+<li>
+<p>menos (-)</p>
+<ul>
+<li>minus (-)</li>
+</ul>
+</li>
+<li>
+<p>quince (15)</p>
+<ul>
+<li>fifteen</li>
+</ul>
+</li>
+<li>
+<p>quince pesos menos catorce peses es un peso.</p>
+<ul>
+<li>15 peses minus 14 pesos is 1 peso</li>
+</ul>
+</li>
+<li>
+<p>cambio</p>
+<ul>
+<li>change (money change)</li>
+</ul>
+</li>
+<li>
+<p>Su cambio es un peso</p>
+<ul>
+<li>Your change is 1 peso</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+The Spanish number from 16-29 do not follow the regular rule for forming numbers, but there is still a trick to remembering them. They are actually contractions! For example, 16 is diez (ten) and sies (six), dieciseis. And, 21 is viente (20) and uno (one), vientiuno. Remember this rule when saying the following numbers!
+</code></pre>
+<ul>
+<li>
+<p>Aquí está su cambio, dieciseite pesos.</p>
+<ul>
+<li>Here's your change, 17 pesos.</li>
+</ul>
+</li>
+<li>
+<p>diecinueve</p>
+<ul>
+<li>19</li>
+</ul>
+</li>
+<li>
+<p>El cuaderno y el repelente de insectos cuestan diecinueve pesos.</p>
+<ul>
+<li>The notebook and the insect repellent cost 19 pesos.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-7"><a class="header" href="#lesson-7">Lesson 7</a></h2>
+<ul>
+<li>
+<p>¿Le gustaría comprar uno?</p>
+<ul>
+<li>Would you like to buy one?</li>
+</ul>
+</li>
+<li>
+<p>gustar</p>
+<ul>
+<li>to like (verb)</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar note
+
+In Spanish, you don't need to use personal subject pronouns because the verb ending tells who you are talking about. However, in verbs such as, gustar (to like) we nned to accompany the verb with an object pronoun. For example, (a mí) me gusta, I like; (a él/ella) le gusta, he/she likes; (a ti) te gusta, you like (informal), and so on.
+</code></pre>
+<ul>
+<li>
+<p>le gusta</p>
+<ul>
+<li>you like (formal)</li>
+</ul>
+</li>
+<li>
+<p>le gustaría</p>
+</li>
+<li>
+<p>you would like (formal)</p>
+</li>
+<li>
+<p>¿Le gustaría ...?</p>
+<ul>
+<li>Would you like ... ? (formal)</li>
+</ul>
+</li>
+<li>
+<p>comprar</p>
+<ul>
+<li>to buy (verb)</li>
+</ul>
+</li>
+<li>
+<p>¿Le gustaría comprar...?</p>
+<ul>
+<li>Would you like to buy...?</li>
+</ul>
+</li>
+<li>
+<p>¿Le gustaría comparar uno?</p>
+<ul>
+<li>Would you like to buy one?</li>
+</ul>
+</li>
+<li>
+<p>zapato</p>
+<ul>
+<li>shoe</li>
+</ul>
+</li>
+<li>
+<p>estos zapatos</p>
+<ul>
+<li>these shoes</li>
+</ul>
+</li>
+<li>
+<p>ver</p>
+<ul>
+<li>to see (verb)</li>
+</ul>
+</li>
+<li>
+<p>¿Le gustaría ver estos zapatos?</p>
+<ul>
+<li>Would you like to see these shoes?</li>
+</ul>
+</li>
+<li>
+<p>me gustaría</p>
+<ul>
+<li>I would like</li>
+</ul>
+</li>
+<li>
+<p>esos</p>
+<ul>
+<li>those</li>
+</ul>
+</li>
+<li>
+<p>No. Me gustaría ver esos zapatos, por favor.</p>
+<ul>
+<li>No. I would like to see those shoes, please.</li>
+</ul>
+</li>
+<li>
+<p>te gustaría</p>
+<ul>
+<li>you would like (informal)</li>
+</ul>
+</li>
+<li>
+<p>camiseta</p>
+<ul>
+<li>T-shirt</li>
+</ul>
+</li>
+<li>
+<p>¿Te gustaría comprar esta camiseta?</p>
+<ul>
+<li>Would you like to buy this T-shirt? (informal)</li>
+</ul>
+</li>
+<li>
+<p>ese</p>
+<ul>
+<li>that</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammer Note
+
+Like adjectives and other describing words in Spanish, "this," "that," "these," and "those" also need to agree with the gender of the noun they describe.
+</code></pre>
+<ul>
+<li>esa camiseta
+<ul>
+<li>that T-shirt</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-8"><a class="header" href="#lesson-8">Lesson 8</a></h2>
+<ul>
+<li>
+<p>negro</p>
+<ul>
+<li>black</li>
+</ul>
+</li>
+<li>
+<p>No me gustaría comprar esa camisete negra</p>
+<ul>
+<li>I wouldn't like to buy that black T-shirt</li>
+</ul>
+</li>
+<li>
+<p>tienda</p>
+<ul>
+<li>store</li>
+</ul>
+</li>
+<li>
+<p>ropa</p>
+<ul>
+<li>clothes</li>
+</ul>
+</li>
+<li>
+<p>tienda de ropa</p>
+<ul>
+<li>clothing store</li>
+</ul>
+</li>
+<li>
+<p>ir
+-to go (verb)</p>
+</li>
+<li>
+<p>¿Te gustaría ir a la tienda de ropa?</p>
+<ul>
+<li>Would you like to go to the clothing store? (informal)</li>
+</ul>
+</li>
+<li>
+<p>zapatería</p>
+<ul>
+<li>shoe store</li>
+</ul>
+</li>
+<li>
+<p>¿Te gustaría comprar zapatos de esa zapatería?</p>
+<ul>
+<li>Would you like to buy shoes from that shoe store?</li>
+</ul>
+</li>
+<li>
+<p>¿Te gustaría comprar esta camiesta?</p>
+<ul>
+<li>Would you like to by this T-shirt</li>
+</ul>
+</li>
+<li>
+<p>Me gustaría comprar esos zapatos negros. ¿Cuánto cuestan?</p>
+<ul>
+<li>I would like to buy those black shoes. How much do they cost?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-9"><a class="header" href="#lesson-9">Lesson 9</a></h2>
+<ul>
+<li>
+<p>Deme dos, por favor</p>
+<ul>
+<li>Give me two, please.</li>
+</ul>
+</li>
+<li>
+<p>dar</p>
+<ul>
+<li>to give (verb)</li>
+</ul>
+</li>
+<li>
+<p>deme</p>
+<ul>
+<li>give me [imperative] (formal)</li>
+</ul>
+</li>
+<li>
+<p>Deme tres mapas, por favor.</p>
+<ul>
+<li>Give me three maps, please</li>
+</ul>
+</li>
+<li>
+<p>me da</p>
+<ul>
+<li>(you) give me (formal)</li>
+</ul>
+</li>
+<li>
+<p>¿Me da un libro, por favor?</p>
+<ul>
+<li>Could you give me a book, please?</li>
+</ul>
+</li>
+<li>
+<p>me das</p>
+<ul>
+<li>(you) give me (informal)</li>
+</ul>
+</li>
+<li>
+<p>marrón</p>
+<ul>
+<li>brown</li>
+</ul>
+</li>
+<li>
+<p>¿Me das esos zapatos marrones?</p>
+<ul>
+<li>Could you give me those brown shoes?</li>
+</ul>
+</li>
+<li>
+<p>nos da</p>
+<ul>
+<li>(you) give us (formal)</li>
+</ul>
+</li>
+<li>
+<p>¿Nos da un mapa de México, por favor?</p>
+<ul>
+<li>Could you give us a map of Mexico, please?</li>
+</ul>
+</li>
+<li>
+<p>¡Por supuesto!</p>
+<ul>
+<li>Of course!</li>
+</ul>
+</li>
+<li>
+<p>¡Por supuesto! Aquí tiene.</p>
+<ul>
+<li>Of course! Here you are.</li>
+</ul>
+</li>
+</ul>
+<h2 id="listening"><a class="header" href="#listening">Listening</a></h2>
+<ul>
+<li>
+<p>atender</p>
+<ul>
+<li>to help/ to attend to</li>
+</ul>
+</li>
+<li>
+<p>Entonces</p>
+<ul>
+<li>So/Then</li>
+</ul>
+</li>
+<li>
+<p>estante</p>
+<ul>
+<li>shelf</li>
+</ul>
+</li>
+<li>
+<p>macadores</p>
+<ul>
+<li>markers</li>
+</ul>
+</li>
+<li>
+<p>Sur</p>
+<ul>
+<li>south</li>
+</ul>
+</li>
+<li>
+<p>unas</p>
+<ul>
+<li>some</li>
+</ul>
+</li>
+<li>
+<p>varios</p>
+<ul>
+<li>various</li>
+</ul>
+</li>
+</ul>
+<h2 id="reading"><a class="header" href="#reading">Reading</a></h2>
+<ul>
+<li>
+<p>de oferta</p>
+<ul>
+<li>on sale</li>
+</ul>
+</li>
+<li>
+<p>oferta</p>
+<ul>
+<li>offer</li>
+</ul>
+</li>
+<li>
+<p>precio</p>
+<ul>
+<li>price</li>
+</ul>
+</li>
+<li>
+<p>si</p>
+<ul>
+<li>if</li>
+</ul>
+</li>
+<li>
+<p>tiene suerte</p>
+<ul>
+<li>(you) are lucky</li>
+</ul>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../mango_languages/chapter_2/places_and_directions.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../mango_languages/chapter_2/food_and_drink_culture.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../mango_languages/chapter_2/places_and_directions.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../mango_languages/chapter_2/food_and_drink_culture.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../mermaid.min.js"></script>
+        <script src="../../mermaid-init.js"></script>
+
+
+    </div>
+    </body>
+</html>

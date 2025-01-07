@@ -1,0 +1,3478 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+        <link rel="stylesheet" href="mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="forward"><a class="header" href="#forward">Forward</a></h1>
+<p>I am just a student taking notes with hopes of passing a class. For my benefit, I will try to make my notes as correct as possible, but you should expect plenty of errors and parts that do not make sense.</p>
+<pre><code class="language-admonish warning">I am not a good student, so don't expect good notes.
+</code></pre>
+<h2 id="my-class"><a class="header" href="#my-class">My Class</a></h2>
+<p>The book we are using is "Yo Soy Así" third edition.</p>
+<p>My 101 class will only cover the first 5 chapters of the book.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="class-notes"><a class="header" href="#class-notes">Class Notes</a></h1>
+<p>Where I keep the notes I take from class.</p>
+<pre><code class="language-admonish warning">During class I write my notes in my tablet, which means, in order for my notes to appear here, I have to port my notes from tablet to here.  
+  
+That is a lot of work. So that may never happen...
+
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="book-notes"><a class="header" href="#book-notes">Book Notes</a></h1>
+<p>Where I keep the notes I take from the book.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cardinal-numbers"><a class="header" href="#cardinal-numbers">Cardinal Numbers</a></h1>
+<h2 id="thing-i-remember-from-class"><a class="header" href="#thing-i-remember-from-class">Thing I remember from class</a></h2>
+<ul>
+<li>Must memorize numbers 1-15 and all the X0 (20, 30, etc) numbers</li>
+<li>16 - 19: replace "z y" in "diez y number" with "ci" to get second form.</li>
+<li>21 - 29: replace "e y" in "viente y number" with "i" to get second form.</li>
+</ul>
+<h2 id="chart"><a class="header" href="#chart">Chart</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>number</th><th>Spanish</th><th>Notes</th></tr></thead><tbody>
+<tr><td>0</td><td>cero</td><td></td></tr>
+<tr><td>1</td><td>uno</td><td></td></tr>
+<tr><td>2</td><td>dos</td><td></td></tr>
+<tr><td>3</td><td>tres</td><td></td></tr>
+<tr><td>4</td><td>cuarto</td><td></td></tr>
+<tr><td>5</td><td>cinco</td><td></td></tr>
+<tr><td>6</td><td>seis</td><td></td></tr>
+<tr><td>7</td><td>siete</td><td></td></tr>
+<tr><td>8</td><td>ocho</td><td></td></tr>
+<tr><td>9</td><td>nueve</td><td></td></tr>
+<tr><td>10</td><td>diez</td><td></td></tr>
+<tr><td>11</td><td>once</td><td></td></tr>
+<tr><td>12</td><td>doce</td><td></td></tr>
+<tr><td>13</td><td>trece</td><td></td></tr>
+<tr><td>14</td><td>catorce</td><td></td></tr>
+<tr><td>15</td><td>quince</td><td></td></tr>
+<tr><td>16</td><td>diez y seis (diecieseis)</td><td></td></tr>
+<tr><td>17</td><td>diez y siete (diecisiete)</td><td></td></tr>
+<tr><td>18</td><td>diez y ocho (dieciocho)</td><td></td></tr>
+<tr><td>19</td><td>diez y nueve (diecinueve)</td><td></td></tr>
+<tr><td>20</td><td>veinte</td><td></td></tr>
+<tr><td>21</td><td>veinte y uno (veintiuno)</td><td></td></tr>
+<tr><td>22</td><td>veinte y dos (veintidos)</td><td></td></tr>
+<tr><td>23</td><td>veinte y tres (veintitres)</td><td></td></tr>
+<tr><td>24</td><td>veinte y cuarto (veinticuarto)</td><td></td></tr>
+<tr><td>25</td><td>veinte y cinco (veinticinco)</td><td></td></tr>
+<tr><td>26</td><td>veinte y seis (veintiseis)</td><td></td></tr>
+<tr><td>27</td><td>veinte y siete (veintisiente)</td><td></td></tr>
+<tr><td>28</td><td>veinte y ocho (veintiocho)</td><td></td></tr>
+<tr><td>29</td><td>veinte y nueve (ventinueva)</td><td></td></tr>
+<tr><td>30</td><td>treinta</td><td></td></tr>
+<tr><td>31</td><td>treinta y uno (una)</td><td>We will not be using "una" variation</td></tr>
+<tr><td>40</td><td>cuarenta</td><td></td></tr>
+<tr><td>50</td><td>cincuanta</td><td></td></tr>
+<tr><td>60</td><td>sesenta</td><td></td></tr>
+<tr><td>70</td><td>setenta</td><td></td></tr>
+<tr><td>80</td><td>ochenta</td><td></td></tr>
+<tr><td>90</td><td>noventa</td><td></td></tr>
+<tr><td>100</td><td></td><td>Went over in class...</td></tr>
+<tr><td>101</td><td></td><td>Went over in class...</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="qué-hora-es"><a class="header" href="#qué-hora-es">¿Qué hora es?</a></h1>
+<h2 id="las-horas-del-día"><a class="header" href="#las-horas-del-día">Las horas del día</a></h2>
+<p>In order to ask "What time is it?", Spanish uses the expression: ¿Qué hora es?</p>
+<p>To response, use "Es la + time" when the hour is "una" (one).</p>
+<ul>
+<li>Es la una de la tarde
+<ul>
+<li>It is 1:00 PM</li>
+</ul>
+</li>
+<li>Es la una y uno de le mañana.
+<ul>
+<li>It is 1:01 AM</li>
+</ul>
+</li>
+</ul>
+<p><strong>Note</strong>: Notice that the hour one is feminine (una), while the minute one is masculine (uno). Use "y" to separate hours and minutes.</p>
+<p>Use "Son las + time" when the hour is higher than one.</p>
+<ul>
+<li>Son las dos de la tarde
+<ul>
+<li>It is 2:00 PM</li>
+</ul>
+</li>
+<li>Son las nueve y cuarenta y cinco de la mañana.
+<ul>
+<li>It is 9:45 AM</li>
+</ul>
+</li>
+<li>Son las doce y cuartro de la tarde.
+<ul>
+<li>It is 12:15 PM</li>
+</ul>
+</li>
+<li>Son las cuarto en punto
+<ul>
+<li>It is exactly 4:00</li>
+</ul>
+</li>
+</ul>
+<p>Use "media" to express 1/2 past the hour, and "cuarto" to express 1/4 past the hour.</p>
+<ul>
+<li>Son las siete y media de la mañana
+<ul>
+<li>It is 7:30 AM</li>
+</ul>
+</li>
+<li>Es la una y cuarto de la tarde.
+<ul>
+<li>It is 1:15 PM</li>
+</ul>
+</li>
+</ul>
+<p><strong>Note</strong>: Noon may also be expressed as "Es el mediodíá". Midnight as "El la medianoche".</p>
+<p>To express the minutes after the half hour subtract the minutes left until the next hour. Instead of using "y", use "menos". For example:</p>
+<ul>
+<li>Son las once y cincuenta de la noche.
+<ul>
+<li>It is 11:15 PM</li>
+</ul>
+</li>
+<li>Son las doce menos diez.
+<ul>
+<li>It is 10 minutes to 12.
+<ul>
+<li>Question: Why was the "de la noche" removed?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Es la una y cincuenta y cinco
+<ul>
+<li>It is 1:55</li>
+</ul>
+</li>
+<li>Son las dos  menos cinco</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="vocabulario"><a class="header" href="#vocabulario">Vocabulario</a></h1>
+<h2 id="expresiones-de-saludo"><a class="header" href="#expresiones-de-saludo">Expresiones de Saludo</a></h2>
+<p>When greeting people we often use the following expressions:</p>
+<ul>
+<li>Hola
+<ul>
+<li>Hello, Hi</li>
+</ul>
+</li>
+<li>Buenos días
+<ul>
+<li>Good morning</li>
+</ul>
+</li>
+<li>Buenas tardes
+<ul>
+<li>Good afternoon</li>
+</ul>
+</li>
+<li>Buenas noches
+<ul>
+<li>Good Evening</li>
+</ul>
+</li>
+</ul>
+<h2 id="expresiones-de-despedida"><a class="header" href="#expresiones-de-despedida">Expresiones de Despedida</a></h2>
+<p>When saying "goodbye" we may use the following expressions:</p>
+<ul>
+<li>Adiós
+<ul>
+<li>Goodbye</li>
+</ul>
+</li>
+<li>Hasta pronto
+<ul>
+<li>See you soon</li>
+</ul>
+</li>
+<li>Hasta luego
+<ul>
+<li>See you later</li>
+</ul>
+</li>
+<li>Hasta mañana
+<ul>
+<li>See you tomorrow</li>
+</ul>
+</li>
+<li>Chao
+<ul>
+<li>Chao
+<ul>
+<li>Borrowed from Italian</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hasta la vista
+<ul>
+<li>See you around</li>
+</ul>
+</li>
+</ul>
+<h2 id="otras-expresiones"><a class="header" href="#otras-expresiones">Otras Expresiones</a></h2>
+<ul>
+<li>¿Qué tal?
+<ul>
+<li>What's up?</li>
+</ul>
+</li>
+<li>¿Cómo estás?
+<ul>
+<li>How are you?</li>
+</ul>
+</li>
+<li>¿Cómo está usted?
+<ul>
+<li>How are you (formal)</li>
+</ul>
+</li>
+<li>(Muy) bien
+<ul>
+<li>(Very) well</li>
+</ul>
+</li>
+<li>(Muy) mal
+<ul>
+<li>(Very) bad</li>
+</ul>
+</li>
+</ul>
+<h1 id="other-words-used-in-the-chapter"><a class="header" href="#other-words-used-in-the-chapter">Other words used in the Chapter</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Word</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>simpático</td><td>nice, likeable, pleasant, friendly</td></tr>
+<tr><td>divertido</td><td>fun, entertaining, funny (causing laughter)</td></tr>
+<tr><td>estudioso</td><td>studious, scholar</td></tr>
+<tr><td>estudiar</td><td>to study (transitive verb)</td></tr>
+<tr><td>carro</td><td>car</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="acentuacíon"><a class="header" href="#acentuacíon">Acentuacíon</a></h1>
+<p>Not all words in Spanish need an accent mark or <em>tilde</em>!. Generally, the accent mark denotes the phonetic emphases on a given syllable if the word does not follow the natural stress on that particular syllable. In other words, as accent mark expresses an exception to the following rules.</p>
+<h2 id="rule-1"><a class="header" href="#rule-1">Rule 1:</a></h2>
+<p>Words ending in any of the five vowels or consonants <strong>n</strong> or <strong>s</strong> carry the stress on the next to last syllable:</p>
+<ul>
+<li>mu<strong>cha</strong>cho</li>
+<li>E<strong>le</strong>na</li>
+<li>ele<strong>fan</strong>te</li>
+<li>ca<strong>qui</strong></li>
+<li><strong>Ca</strong>rmen</li>
+<li>mu<strong>cha</strong>chos</li>
+</ul>
+<h2 id="rule-2"><a class="header" href="#rule-2">Rule 2:</a></h2>
+<p>All other words ending in a consonant (except <strong>n</strong> or <strong>s</strong>) are stressed on the Last syllable:</p>
+<ul>
+<li>ron<strong>car</strong></li>
+<li>apti<strong>tud</strong></li>
+<li>Bra<strong>sil</strong></li>
+<li>fri<strong>jol</strong></li>
+<li>Inter<strong>net</strong></li>
+</ul>
+<h2 id="rule-3"><a class="header" href="#rule-3">Rule 3:</a></h2>
+<p>Then, if a word carries the stress on a different syllable, it must show the accent mark on the vowel of the syllable that is stressed:</p>
+<ul>
+<li>in<strong>glés</strong></li>
+<li><strong>glán</strong>dula</li>
+<li><strong>pá</strong>jaro</li>
+<li>glo<strong>tón</strong></li>
+<li><strong>clí</strong>max</li>
+</ul>
+<h2 id="rule-4"><a class="header" href="#rule-4">Rule 4:</a></h2>
+<p>All words in Spanish that are stressed on the third or fourth syllables must be written with an accent mark:</p>
+<ul>
+<li>Cu<strong>én</strong>tamelo</li>
+<li>cen<strong>tí</strong>metro</li>
+<li><strong>clá</strong>usula</li>
+<li><strong>lám</strong>para</li>
+<li>en<strong>tré</strong>gaselo</li>
+</ul>
+<h2 id="not-a-rule-but-still-important"><a class="header" href="#not-a-rule-but-still-important">Not a Rule but still Important:</a></h2>
+<p>There is a final use of the <em>tilde</em> or accent mark. Certain words have the same spelling, but have different meanings. Then, an accent mark is used to differentiate their meaning:</p>
+<div class="table-wrapper"><table><thead><tr><th>Word 1</th><th>Word 2</th></tr></thead><tbody>
+<tr><td>él = he</td><td>el = the</td></tr>
+<tr><td>tú = you</td><td>tu = your</td></tr>
+<tr><td>sí = yes</td><td>si = if</td></tr>
+<tr><td>más = more</td><td>mas = but</td></tr>
+<tr><td>sólo = only</td><td>solo = alone</td></tr>
+<tr><td>aún = moreover</td><td>aun = even</td></tr>
+<tr><td>té = tea</td><td>te = you (object pronoun)</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="subject-pronouns"><a class="header" href="#subject-pronouns">Subject Pronouns</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Singular</th><th>Plural</th></tr></thead><tbody>
+<tr><td>Yo, I</td><td>Nosotros (as), We</td></tr>
+<tr><td>Tú, You (fam)</td><td>Vosotros (as), (fam.) We?</td></tr>
+<tr><td>Usted, You (pol.)</td><td>Ustedes, You (pol.)</td></tr>
+<tr><td>Él, he</td><td>Ellos, They (masc./mix)</td></tr>
+<tr><td>Ella, she</td><td>Ellas, They (fem.)</td></tr>
+</tbody></table>
+</div>
+<p>The English subject pronoun <em>it</em> has no counterpart in Spanish; it is understood.</p>
+<ul>
+<li>Es una clase muy interesante.
+<ul>
+<li>It is an interesting class.</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-verb-ser"><a class="header" href="#the-verb-ser">The Verb <em>Ser</em></a></h2>
+<p>Spanish uses two verbs to express "to be." Although these verbs have specific uses and can't be interchangeable, we will only learn the verb "ser" in this unit. The present tense of "ser" is irregular, and it must be learned by itself.</p>
+<div class="table-wrapper"><table><thead><tr><th>Ser</th><th>Ser</th></tr></thead><tbody>
+<tr><td>Yo soy</td><td>Nosotros/as Somos</td></tr>
+<tr><td>Tú eres</td><td>Vosotros/as Sois</td></tr>
+<tr><td>Él, Ella es</td><td>Ellos/as Son</td></tr>
+<tr><td>Usted es</td><td>Ustedes Son</td></tr>
+</tbody></table>
+</div>
+<h3 id="1-ser-is-used-to-identify-the-subject"><a class="header" href="#1-ser-is-used-to-identify-the-subject">1. <em>Ser</em> is used to identify the subject</a></h3>
+<ul>
+<li>Yo soy Roberto Sandoval</li>
+<li>Ella es Teresa Molina</li>
+</ul>
+<h3 id="2-ser-descibes-characteristics-that-are-viewed-as-inherent-qualities-of-the-subject"><a class="header" href="#2-ser-descibes-characteristics-that-are-viewed-as-inherent-qualities-of-the-subject">2. <em>Ser</em> descibes characteristics that are viewed as inherent qualities of the subject.</a></h3>
+<ul>
+<li>Mi hermano es simpático y divertido</li>
+<li>Teresa Molina es muy estudiosa</li>
+</ul>
+<h3 id="3-ser-states-origin-and-nationality"><a class="header" href="#3-ser-states-origin-and-nationality">3. <em>Ser</em> states origin and Nationality</a></h3>
+<ul>
+<li>El Doctor Blanco es de Cuba</li>
+<li>Él es cubano</li>
+</ul>
+<h3 id="4-ser-is-also-used-to-tell-time-and-to-express-dates"><a class="header" href="#4-ser-is-also-used-to-tell-time-and-to-express-dates">4. <em>Ser</em> is also used to tell time and to express dates</a></h3>
+<ul>
+<li>¿Qué hora es?
+<ul>
+<li>What time is it?</li>
+</ul>
+</li>
+<li>Son las dos de la tarde
+<ul>
+<li>It is two o'clock in the afternoon</li>
+</ul>
+</li>
+<li>Hoy es el 22 de noviembre
+<ul>
+<li>Today is the 22nd of November</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-with-the-preposition-de-to-express-ownership-and-to-indicate-what-things-are-made-of"><a class="header" href="#5-with-the-preposition-de-to-express-ownership-and-to-indicate-what-things-are-made-of">5. With the preposition <em>de</em> to express ownership and to indicate what things are made of.</a></h3>
+<ul>
+<li>El carro no es de Teresa; es de Carlos.
+<ul>
+<li>It is not Teresa's car; it is Carlos'</li>
+</ul>
+</li>
+<li>La casa de los González no es de madera; es de adobe
+<ul>
+<li>The González's house is not made of wood; it is mode of adobe</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-to-form-impersonal-expressions-like-es-ncessario-es-importante-es-imposible-es-probable-and-so-on"><a class="header" href="#6-to-form-impersonal-expressions-like-es-ncessario-es-importante-es-imposible-es-probable-and-so-on">6. To form impersonal expressions like: es ncessario, es importante, es imposible, es probable, and so on.</a></h3>
+<ul>
+<li>Es necessario estudiar para sacar buenas notas.
+<ul>
+<li>It is necessary to study in order to get good grade.</li>
+</ul>
+</li>
+<li>Es importante hablar español en la clase.
+<ul>
+<li>It is important to speak Spanish in class.</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-1-homework"><a class="header" href="#chapter-1-homework">Chapter 1 Homework</a></h1>
+<h2 id="diálogos"><a class="header" href="#diálogos">Diálogos</a></h2>
+<h3 id="matching"><a class="header" href="#matching">Matching</a></h3>
+<ul>
+<li>Buenas tardes ==&gt; Buenas</li>
+<li>¿Cómo te llamas? ==&gt; Me llamo Pedro</li>
+<li>¿Qué tal? ==&gt; Bien</li>
+<li>Mucho gusto ==&gt; El gusto es mío</li>
+<li>¿Eres americano? ==&gt; Sí, de Nueva Jersey</li>
+</ul>
+<h3 id="fill-in-the-blanks-in-the-following-conversations"><a class="header" href="#fill-in-the-blanks-in-the-following-conversations">Fill in the blanks in the following conversations</a></h3>
+<ul>
+<li>Hola, me llamo José Antonio. ¿Y tú?
+<ul>
+<li>Me llamo <em>Marcus</em>. Mucho gusto</li>
+<li>Un <em>placer</em></li>
+<li><em>Hasta</em> luego</li>
+<li>Adiós</li>
+</ul>
+</li>
+<li>Buenas tardes. Mi <em>nombre</em> es Doctor Blanco. ¿<em>Cómo</em> se llama usted?
+<ul>
+<li>Buenas <em>tardes</em>. Me <em>llamo</em> María Luisa.</li>
+<li><em>Mucho</em> gusto, María Luisa</li>
+<li><em>El gusto es mío</em>, Doctor Blanco</li>
+</ul>
+</li>
+<li>Hola, soy Oscar. ¿Y tú? ¿<em>Cómo</em> te llamas?
+<ul>
+<li>Me <em>llamo</em> Lupe. Encantada.</li>
+<li><em>Mucho gusto</em>. Hasta <em>la vista</em>.</li>
+<li>Chao Adiós.</li>
+</ul>
+</li>
+<li><em>Buenos</em> días, clase. Soy el Profesor Gallo.
+<ul>
+<li>Buenos <em>días</em>. Profesor.</li>
+<li>¿Cómo te llamas tú?</li>
+<li>Mi <em>nombre</em> es Pedro. Mucho <em>gusto</em>, Professor.</li>
+<li><em>un placer</em> Pedro. Adiós, clase.</li>
+<li><em>Hasta</em> luego, Profesor.</li>
+</ul>
+</li>
+</ul>
+<h2 id="ejercicios-de-gramática"><a class="header" href="#ejercicios-de-gramática">Ejercicios De Gramática</a></h2>
+<h3 id="d"><a class="header" href="#d">D</a></h3>
+<p>Complete these questions and statements with the appropriate form of <strong>SER (to be)</strong>.</p>
+<ol>
+<li>Ustedes <em>son</em> estudiantes y yo <em>soy</em> professor.</li>
+<li>José, ¿<em>eres</em> (tú) estudiante?</li>
+<li>Señores Pérez, ¿<em>Son</em> ustedes de España?</li>
+<li>Nosotros <em>Somos</em> de Nueva York.</li>
+<li>Ellos <em>son</em> de Puerto Rico y usted es peruano.</li>
+<li>Ella y yo <em>somos</em> mexicanos.</li>
+<li>¿<em>Eres</em> tú de Puerto Rico?</li>
+<li>Ella <em>es</em> María López.</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="take-home-homework"><a class="header" href="#take-home-homework">Take Home Homework</a></h1>
+<h2 id="dialog"><a class="header" href="#dialog">Dialog</a></h2>
+<ul>
+<li>Marcus: Hola. ¿Qué hora es?
+<ul>
+<li>Hello. Do you know what time it is?</li>
+</ul>
+</li>
+<li>Emily: Son las diez menos cinco. ¿Eres Marcus?
+<ul>
+<li>5 minutes to 10. You are Marcus?</li>
+</ul>
+</li>
+<li>Marcus: Sí. Mi llamo Marcus. ¿Y tú?
+<ul>
+<li>Yes. My name is Marcus. You are?</li>
+</ul>
+</li>
+<li>Emily: Mi llamo Emily. Soy estudiante del profesor Luffy.
+<ul>
+<li>My name is Emily. I am a student of professor Luffy.</li>
+</ul>
+</li>
+<li>Marcus: Soy estudiante tambien. Mi professor es señorita Nami.
+<ul>
+<li>I am also a student. My professor is Miss Nami.</li>
+</ul>
+</li>
+<li>Emily: Mucho gusto.
+<ul>
+<li>Nice to meet you.</li>
+</ul>
+</li>
+<li>Marcus: El Gusto es mío. Hasta luego.
+<ul>
+<li>The pleasure was mine. See you later.</li>
+</ul>
+</li>
+<li>Emily: Hasta luego.
+<ul>
+<li>See you later</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-present-tense"><a class="header" href="#the-present-tense">The Present Tense</a></h1>
+<p>The Spanish present tense reports actions or events that take place in present time. It can also be used to report activities in progressive and/or emphatic ways.</p>
+<p>Yo trabajo --&gt; I work/I am working/I do work</p>
+<h2 id="three-forms-of-verbs"><a class="header" href="#three-forms-of-verbs">Three Forms of Verbs:</a></h2>
+<p>Spanish has three families of verbs. We recognize them by the three infinitive endings <strong>-ar</strong>, <strong>-er</strong>, and <strong>-ir</strong>. In this unit we will learn the pattern for regular <strong>-ar</strong> verbs only. To form the present tense, we first remobe the <strong>-ar</strong> infinitive ending and add the following pattern.</p>
+<h2 id="-ar-verb-patterns"><a class="header" href="#-ar-verb-patterns">-AR Verb patterns</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Subject</th><th><strong>-ar</strong> pattern ending</th></tr></thead><tbody>
+<tr><td>Yo</td><td>o</td></tr>
+<tr><td>Tú</td><td>as</td></tr>
+<tr><td>Usted, él, ella</td><td>a</td></tr>
+<tr><td>Nosotros(as)</td><td>amos</td></tr>
+<tr><td>Vosotros(as)</td><td>áis</td></tr>
+<tr><td>Ustedes, ellos(as)</td><td>an</td></tr>
+</tbody></table>
+</div><div class="table-wrapper"><table><thead><tr><th></th><th>Trabajar</th><th>Hablar</th><th>Cantar</th></tr></thead><tbody>
+<tr><td>Yo</td><td>trabajo</td><td>hablo</td><td>canto</td></tr>
+<tr><td>Tú</td><td>trabajas</td><td>hablas</td><td>cantas</td></tr>
+<tr><td>Usted, él, ella</td><td>trabaja</td><td>habla</td><td>canta</td></tr>
+<tr><td>Nosotros(as)</td><td>trabajamos</td><td>hablamos</td><td>cantamos</td></tr>
+<tr><td>Vosotros(as)</td><td>trabajáis</td><td>habláis</td><td>cantáis</td></tr>
+<tr><td>Usteded, ellos(as)</td><td>trabajan</td><td>hablan</td><td>cantan</td></tr>
+</tbody></table>
+</div>
+<h2 id="dropping-subject-nouns-or-pronouns"><a class="header" href="#dropping-subject-nouns-or-pronouns">Dropping Subject Nouns or Pronouns:</a></h2>
+<p>As you will see, it is not necessary to use subject nouns or pronouns to express actions in Spanish. They can be used to create emphasis and/or avoid lack of clarity.</p>
+<p>The verb forms can tell us when the action is taking place (present, past, future) and who is performing the action. For example:</p>
+<p><em>Nosotros trabajamos</em> is translated as: <em>We work</em>. But the same action can be expressed simply as: <em>trabajamous</em>.</p>
+<h2 id="verb-negation-no"><a class="header" href="#verb-negation-no">Verb Negation (No):</a></h2>
+<p>In order to form a negative statement, Spanish uses the word <strong>no</strong> in front of the verb:</p>
+<ul>
+<li>Nosotros <strong>no</strong> trabajamous.</li>
+<li><strong>No</strong> trabajamous.</li>
+</ul>
+<h2 id="verb-question-statements"><a class="header" href="#verb-question-statements">Verb Question Statements:</a></h2>
+<p>One way of formating questions in Spanish is by switching the position of the verb or by adding a trigger expression at the end of a statement.</p>
+<ul>
+<li>
+<p>El Profesor Saborido enseña español.</p>
+<ul>
+<li>Professor Saborido teaches Spanish.</li>
+</ul>
+</li>
+<li>
+<p>¿Enseña español el Profesor Saborido?</p>
+</li>
+<li>
+<p>El Profesor Saborido enseña español, ¿no?</p>
+</li>
+<li>
+<p>El Profesor Saborido enseña español, ¿verdad?</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="nouns-and-articles"><a class="header" href="#nouns-and-articles">Nouns and Articles</a></h1>
+<p>All nouns in Spanish have gender. They are either masculine of feminine.</p>
+<h2 id="masculine-nouns"><a class="header" href="#masculine-nouns">Masculine nouns:</a></h2>
+<p>Nouns that end in <strong>-o</strong> are generally masculine. All nouns that refer to a male person are also masculine.</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th></th></tr></thead><tbody>
+<tr><td>el libro</td><td>the book</td></tr>
+<tr><td>el cuaderno</td><td>the notenook</td></tr>
+<tr><td>el hombre</td><td>the man</td></tr>
+<tr><td>el Papa</td><td>the Pope</td></tr>
+<tr><td>el padre</td><td>the father</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-admonish warning">|||
+|||
+|la mano| the hand|
+</code></pre>
+<h2 id="nouns-that-end-in--a"><a class="header" href="#nouns-that-end-in--a">Nouns that end in <strong>-a</strong>:</a></h2>
+<p>Most nounds that end in <strong>-a</strong> are feminine. All nouns that refer to a female person are feminine.</p>
+<p>|||
+|||
+|la libreta| the notebook|
+|la escuela| the school |
+|la mujer| the woman|
+|la madre| the mother|</p>
+<pre><code class="language-admonish warning">|||
+|||
+|el día|the day|
+|el mapa| the map|
+|el planeta| the planet|
+|el sofá| the sofa, the couch|
+</code></pre>
+<h2 id="nouns-that-end-in--dad--tad--tud-and--umbre-are-feminine"><a class="header" href="#nouns-that-end-in--dad--tad--tud-and--umbre-are-feminine">Nouns that end in <strong>-dad</strong>, <strong>-tad</strong>, <strong>-tud</strong>, and <strong>-umbre</strong> are feminine:</a></h2>
+<p>|||
+|||
+|la universidad| the university|
+|la dificultad| the difficulty|
+|la multitud| the gathering|
+|la muchedumbre| the gathering|</p>
+<h2 id="nouns-ending-in--ión"><a class="header" href="#nouns-ending-in--ión">Nouns ending in <strong>-ión</strong>:</a></h2>
+<p>All nouns end in <strong>-ión</strong> are feminine with the exception of "camión" (truck) and "avión" (plane).</p>
+<p>|||
+|||
+|la canción| the song|
+|la lección| lesson|
+|la explicación| explain|
+|la comunicación| communication|
+|la nación| nation|</p>
+<h2 id="other-noun-endings"><a class="header" href="#other-noun-endings">Other Noun endings:</a></h2>
+<p>For the correct gender of nouns that end in other consonants or vowels, one must consult a dictionary.</p>
+<p>|||
+|||
+|el lápiz| the pencil|
+|la luz| the light|
+|el tren| the train|
+|la pared| the wall|</p>
+<h2 id="plural-form-of-noun-endings"><a class="header" href="#plural-form-of-noun-endings">Plural form of noun endings:</a></h2>
+<p>To form the plural of nouns endings in a vowel, we add an (s.) If the noun ends in a consonant add <strong>-es</strong>.</p>
+<p>|||
+|||
+|el libro| los libros|
+|la escuela| las escuelas|
+|el profesor| los profesores|
+|la universidad| las univerisdades|
+|la nación|las naciones|</p>
+<p>If a noun ends in <strong>-z</strong>, to form the plural it is necessary to change the <strong>-z</strong> to a <strong>-c</strong> before adding <strong>-es</strong>.</p>
+<p>|||
+|||
+|la luz|las luces|
+|el lápiz|los lápices|</p>
+<h2 id="the-articles"><a class="header" href="#the-articles">The Articles</a></h2>
+<p>As you may have observed in all the previous examples, nouns in Spanish must be proceded by an article, either definite or indefinite, the translates the English article <em>the</em>, <em>a</em>, or <em>an</em>.</p>
+<p>||Singular| Plural|
+||||
+|Masculine| el| los|
+|Feminine|la|las|</p>
+<p>The English singular indefinite articles <em>a</em> or <em>an</em>, and their plural <em>some</em>, <em>a few</em>, are formed as follows:</p>
+<p>||Singluar|Plural|
+||||
+|Masculine|un|unos|
+|Feminine|una|unas|</p>
+<ul>
+<li>el profesor --&gt; los profesores</li>
+<li>un profesor --&gt; unos profesores</li>
+<li>la profesora --&gt; las profesoras</li>
+<li>una profesora --&gt; unas profesoras</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="descriptive-adjectives-and-adjectives-of-nationality"><a class="header" href="#descriptive-adjectives-and-adjectives-of-nationality">Descriptive Adjectives and Adjectives of Nationality</a></h1>
+<p>Descriptive adjectives are generally placed after the nouns they modify, and they much in agreement (gender and number) with those nouns.</p>
+<h2 id="descriptive-adjectives-ending-in--o"><a class="header" href="#descriptive-adjectives-ending-in--o">Descriptive adjectives ending in <strong>-o</strong>:</a></h2>
+<p>Descriptive adjectives ending in <strong>-o</strong> in the masculine singular form have four forms: <strong>-o</strong>, <strong>-a</strong>, <strong>-os</strong>, and <strong>-as</strong>.</p>
+<p>|||
+|||
+|Un alumno serio|una alumna seria|
+|Dos alumnos serios|Dos alumnas serias|</p>
+<h2 id="descriptive-adjectives-ending-in--dor"><a class="header" href="#descriptive-adjectives-ending-in--dor">Descriptive adjectives ending in <strong>-dor</strong>:</a></h2>
+<p>Descriptive adjectives ending in <strong>-dor</strong> also have four forms: <strong>-dor</strong>, <strong>-dora</strong>, <strong>-dores</strong>, and <strong>-doras</strong>.</p>
+<p>|||
+|||
+|Un alumno trabajador|Una alumna tradajadora|
+|Dos alumnos trabajadores|Dos alumnas trabajadoras|</p>
+<h2 id="descriptive-adjectives-ending-in--ón"><a class="header" href="#descriptive-adjectives-ending-in--ón">Descriptive adjectives ending in <strong>-ón</strong>:</a></h2>
+<p>Descriptive adjectives ending in <strong>-ón</strong> have four forms as well: <strong>-ón</strong>, <strong>-ona</strong>, <strong>-ones</strong>, and <strong>-onas</strong>.</p>
+<p>|||
+|||
+|Un amigo comilón|Una amiga comilona|
+|Dos amigos comilones|Dos amigas comilonas|</p>
+<h2 id="adjectives-of-nationality-ending-in-a-consonant-also-have-four-forms"><a class="header" href="#adjectives-of-nationality-ending-in-a-consonant-also-have-four-forms">Adjectives of nationality ending in a consonant also have four forms:</a></h2>
+<p>|||
+|||
+|Un profesor español|Una profesora española|
+|Dos prfesores españoles|Dos profesoras españolas|</p>
+<h2 id="other-adjectives"><a class="header" href="#other-adjectives">Other adjectives:</a></h2>
+<p>Other adjectives have the same form for both masculine and feminine, but they must show number (singular or plural). If they end in a vowel, you must add an <strong>-s</strong>. If they end in a consonant, you must add <strong>-es</strong>.</p>
+<p>|||
+|||
+|Un profesor popular|Una profesora popular|
+|Dos profesores populares|Dos profesoras populares|</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-verb-gustar-and-encantar"><a class="header" href="#the-verb-gustar-and-encantar">The Verb <em>Gustar</em> and Encantar</a></h1>
+<p>To express the meaning of "to like", Spanish uses the verb <em>gustar</em>, which literally means "to be pleasing to." The subject of the verb is then what "is pleasing or are pleasing to," and the indirect receiver becomes the indirect object of the verb. Consequently, <em>gustar</em> can only be conjugated in its third person singular or plural (<em>gusta</em> or <em>gustan</em>).</p>
+<p>|||
+|||
+|¿Te gusta la clase de español?|Sí, me gusta mucho.|
+|¿Te gustan todas las clases?|No, no me gustan todas. Solamente me gusta la clase de español.|</p>
+<p><em>Gustar</em> can be followed by another verb in the infinitive to express what one likes to do:</p>
+<ul>
+<li>¿Te gusta hablar español?
+<ul>
+<li>Sí, me gusta mucho.</li>
+</ul>
+</li>
+</ul>
+<p>Note also that to state what one does not like, the negative word <strong>no</strong> must be placed before the indirect object pronoun.</p>
+<ul>
+<li>¿Te gusta cantar?
+<ul>
+<li>No, no me gusta cantar.</li>
+</ul>
+</li>
+</ul>
+<p>Other ways of expressing "what is pleasing to" with other indirect object pronouns:</p>
+<p>|Singular|Plural|
+|||
+|me -- to me|nos -- to us|
+|te -- to you|os -- to you|
+|le -- to you, to him to her, to it| les -- to you, to them|</p>
+<ul>
+<li>
+<p>Le gusta estudiar.</p>
+<ul>
+<li>He likes to study (Studying is pleasing to him)</li>
+<li>She likes to study (Studying is pleasing to her)</li>
+<li>You like to study (Studying is pleasing to you)</li>
+</ul>
+</li>
+<li>
+<p>No nos gustan los vegetales.</p>
+<ul>
+<li>We don't like vegetables (Vegetables are not pleasing to us)</li>
+</ul>
+</li>
+</ul>
+<h1 id="the-verb-encantar"><a class="header" href="#the-verb-encantar">The verb Encantar:</a></h1>
+<p>Similar to <em>gustar</em>, <em>encantar</em> is used to imply a higher degree of "to like". It is used to express the English idea of "to live things" and "to love to do things". Just like <em>gustar</em>, it is conjugated only in its third person singular or plural (<em>encanta</em> or <em>encantan</em>). Also an indirect object pronoun, instead of a subject pronoun must be used with this verb. Remember to use a verb in its infinitive to describe activities that one loves to do.</p>
+<ul>
+<li>Me gusta cantar pero me encanta bailar.
+<ul>
+<li>I like to sing, but I love to dance.</li>
+</ul>
+</li>
+</ul>
+<p>To express "to love" people or pets, one must use the verb <strong>amar</strong>, a regular <strong>-ar</strong> verb.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-days-of-the-week----los-días-de-la-semana"><a class="header" href="#the-days-of-the-week----los-días-de-la-semana">The days of the week -- Los días de la semana</a></h1>
+<p>In order to express today's day we ask: ¿Qué día es hoy?
+To respond, we say:</p>
+<ul>
+<li>
+<p>How es lunes.</p>
+<ul>
+<li>Today is Monday.</li>
+</ul>
+</li>
+<li>
+<p>Hoy es martes.</p>
+<ul>
+<li>Today is Tuesday.</li>
+</ul>
+</li>
+</ul>
+<p>The days of the week are not capitalized in Spanish. In Spanish the first day of the week is lunes (Monday).</p>
+<ul>
+<li>lunes</li>
+<li>martes,</li>
+<li>miércoles</li>
+<li>jueves</li>
+<li>viernes</li>
+<li>sábado</li>
+<li>domingo</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-months-of-the-year----los-meses-del-ańo"><a class="header" href="#the-months-of-the-year----los-meses-del-ańo">The months of the year -- Los meses del ańo</a></h1>
+<p><strong>Febrero</strong></p>
+<p>|lunes|martes|miércoles|jueves|viernes|sábado|domingo|
+||||||||
+|1|2|3|4|5|6|7|
+|8|9|10|11|12|13|14|
+|15|16|17|18|19|20|21|
+|22|23|24|25|26|27|28|</p>
+<p>To express today's date, say: ¿Cuál es fecha de hoy?
+The response is usually:</p>
+<ul>
+<li>Hoy es el 15 de febrero.
+<ul>
+<li>Today is the fifteenth of February</li>
+</ul>
+</li>
+</ul>
+<p>Same as the days of the week, the months are not capitilized either.</p>
+<h2 id="meses-del-año"><a class="header" href="#meses-del-año">Meses del año</a></h2>
+<ul>
+<li>enero</li>
+<li>febrero</li>
+<li>marzo</li>
+<li>abril</li>
+<li>mayo</li>
+<li>junio</li>
+<li>julio</li>
+<li>agosto</li>
+<li>septiembre</li>
+<li>octubre</li>
+<li>noviembre</li>
+<li>diciembre</li>
+</ul>
+<p>Notice that with the exemption of the first (el primero) of any month, Spanish uses cardinal numbers (uno, dos, tres, etc).</p>
+<ul>
+<li>Hoy es el primero de enero.</li>
+<li>Mañana es el dos de enero.</li>
+<li>El miécoles es el tres de enero.</li>
+</ul>
+<h2 id="the-seasons----las-estaciones"><a class="header" href="#the-seasons----las-estaciones">The seasons -- Las estaciones</a></h2>
+<p>|Fall|Winter|Spring|Summer|
+|||||
+|el otoño|el invierno|la primavera|el verano|</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="demonstrative-adjectives"><a class="header" href="#demonstrative-adjectives">Demonstrative Adjectives</a></h1>
+<p>Demonstrative adjectives are used to state the postition of people or things to which the speaker is referring. They must agree with the gender and number of the noun they modify. In English we use <em>this</em> or <em>these</em> to indicate that the object is near the speaker, and <em>that</em> or <em>those</em> to indicate that the objext is at some distance from the speak. Spanish also uses a third adjective to distinguish between the distance of two or more nouns that relate to the speaker or the listener.</p>
+<p>|Masculine|Feminine||
+||||
+|<strong>Este</strong> coche|<strong>Esta</strong> casa| This|
+|<strong>Ese</strong> coche|<strong>Esa</strong> casa|That|
+|<strong>Aquel</strong> coche|<strong>Aquella</strong> casa|That (far)|
+|<strong>Estos</strong> coches|<strong>Estas</strong> casas|These|
+|<strong>Esos</strong> coches|<strong>Esas</strong> casas|Those|
+|<strong>Aquellos</strong> coches|<strong>Aquellas</strong> casas|Those (far)|</p>
+<p>It is also common to use the adverbs <em>aquí</em> (here), <em>allí</em> (there), and <em>allá</em> (over there) with demonstrative adjectives to further emphasize the distance.</p>
+<ul>
+<li>
+<p>Este coche aquí es barato, pero ese coche allí es caro.</p>
+<ul>
+<li>This car is cheap, but that car is expensive.</li>
+</ul>
+</li>
+<li>
+<p>Aquellos coches allá son los más caros.</p>
+<ul>
+<li>Those cars over there are the most expensive.</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="demonstrative-pronouns"><a class="header" href="#demonstrative-pronouns">Demonstrative Pronouns</a></h1>
+<p>Spanish demonstrative adjectives agree in number and gender with the modified noun. Let's review again:</p>
+<ul>
+<li>
+<p>This (near)</p>
+<ul>
+<li>este apartmento</li>
+<li>esta casa</li>
+</ul>
+</li>
+<li>
+<p>These</p>
+<ul>
+<li>estos apartmentos</li>
+<li>estas casas</li>
+</ul>
+</li>
+<li>
+<p>That (near)</p>
+<ul>
+<li>ese apartmento</li>
+<li>esa casa</li>
+</ul>
+</li>
+<li>
+<p>Those</p>
+<ul>
+<li>esos apartmentos</li>
+<li>esas casas</li>
+</ul>
+</li>
+<li>
+<p>That (far -- over there)</p>
+<ul>
+<li>aquel apartmento</li>
+<li>aquella casa</li>
+</ul>
+</li>
+<li>
+<p>Those (far -- over there)</p>
+<ul>
+<li>aquellos apartmentos</li>
+<li>aquellas casas</li>
+</ul>
+</li>
+</ul>
+<p>Spanish uses <strong>aquel</strong>/<strong>aquella</strong>/<strong>aquellos</strong>/<strong>aquellas</strong> to show objects father away from other objects previously mentioned or to the persons spoken to:</p>
+<ul>
+<li>
+<p>Esta casa es grande</p>
+<ul>
+<li>This house is big</li>
+</ul>
+</li>
+<li>
+<p>Esa casa es más grande</p>
+<ul>
+<li>That house is bigger</li>
+</ul>
+</li>
+<li>
+<p>Aquella casa es la más grande</p>
+<ul>
+<li>That house (over there) is the biggest</li>
+</ul>
+</li>
+</ul>
+<p>Demonstrative constructions are usually accoumpanied by the following emphatic adverbs: <strong>aquí</strong> (here), <strong>allí</strong> (there), <strong>allá</strong> (over there).</p>
+<ul>
+<li>Voy a comprar ese apartmento que esta allí, aunque me gusta más aquel apartmento que está allá.
+<ul>
+<li>I am going to buy that apartment, although I like that one over there better.</li>
+</ul>
+</li>
+</ul>
+<p>In order to avoid repetition, we can replace the demonstrative adjective with a pronoun. These pronouns carry an accent mark to distinguish them from adjective forms:</p>
+<ul>
+<li>
+<p>Esta casa es grande</p>
+<ul>
+<li>This house is big</li>
+</ul>
+</li>
+<li>
+<p>Ésa es más grande.</p>
+<ul>
+<li>That one is bigger</li>
+</ul>
+</li>
+<li>
+<p>Aquélla es la más grande.</p>
+<ul>
+<li>That one (over there) is the biggest.</li>
+</ul>
+</li>
+<li>
+<p>¿Cuál te gusta más? ¿Ésta, ésa o aquélla?</p>
+<ul>
+<li>Which one do you like better? This one, that one or that one over there?</li>
+</ul>
+</li>
+</ul>
+<p><strong>Esto</strong>, <strong>eso</strong>, and <strong>aquello</strong> also function as pronouns. However, they only refer to abstract concepts, ideas, or nonspecific objects. Notice that in their neuter forms these pronouns do not carry an accent mark and are only used in the singular form.</p>
+<ul>
+<li>
+<p>Esto es muy importante</p>
+<ul>
+<li>This is very important</li>
+</ul>
+</li>
+<li>
+<p>No repitas eso</p>
+<ul>
+<li>Don't repeat that</li>
+</ul>
+</li>
+<li>
+<p>¿Qué es aquello?</p>
+<ul>
+<li>What is that over there?</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="lesson-8"><a class="header" href="#lesson-8">Lesson 8</a></h2>
+<ul>
+<li>
+<p>Dolbe</p>
+<ul>
+<li>Turn [imperative] (formal)</li>
+</ul>
+</li>
+<li>
+<p>Doble a la izquierda</p>
+<ul>
+<li>Turn left</li>
+</ul>
+</li>
+<li>
+<p>Doble a la derecha y luego vaya derecho</p>
+<ul>
+<li>Turn right and then go straight</li>
+</ul>
+</li>
+<li>
+<p>Dobla</p>
+<ul>
+<li>Turn [imperative] (informal)</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-10"><a class="header" href="#lesson-10">Lesson 10</a></h2>
+<ul>
+<li>
+<p>¡Vamos a un restaurante tradicional!</p>
+<ul>
+<li>Let's go to a traditional restaurant!</li>
+</ul>
+</li>
+<li>
+<p>¡Vamos!</p>
+<ul>
+<li>Let's go!</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Did you know that we can ise the verb ¡Vamos! in imperative mood to make an invitation, meaning "Come on!" or "Let's go!"?
+</code></pre>
+<ul>
+<li>
+<p>tradicional</p>
+<ul>
+<li>traditional</li>
+</ul>
+</li>
+<li>
+<p>un restaurante tradicional</p>
+<ul>
+<li>a traditional restaurant</li>
+</ul>
+</li>
+<li>
+<p>querer</p>
+<ul>
+<li>To want (verb)</li>
+</ul>
+</li>
+<li>
+<p>quiero</p>
+<ul>
+<li>(I) want</li>
+</ul>
+</li>
+<li>
+<p>comer</p>
+<ul>
+<li>to eat (verb)</li>
+</ul>
+</li>
+<li>
+<p>Quiero comer</p>
+<ul>
+<li>I want to eat.</li>
+</ul>
+</li>
+<li>
+<p>algo</p>
+<ul>
+<li>something</li>
+</ul>
+</li>
+<li>
+<p>diferente</p>
+<ul>
+<li>different</li>
+</ul>
+</li>
+<li>
+<p>Quiero comer algo diferente</p>
+<ul>
+<li>I wan to eat something different</li>
+</ul>
+</li>
+<li>
+<p>internacional</p>
+<ul>
+<li>international</li>
+</ul>
+</li>
+<li>
+<p>restaurante internacional</p>
+<ul>
+<li>International restaurant</li>
+</ul>
+</li>
+<li>
+<p>Queiro comer algo diferente. ¡Vamos a un restaurante internacional!</p>
+<ul>
+<li>I want to eat something different. Let's go to an international restaurant!</li>
+</ul>
+</li>
+<li>
+<p>película</p>
+<ul>
+<li>movie</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish tip">To type Spanish accent marks:
+1. Switch to Spanish input (`Super + Space`)
+2. Type the accent key `[` (That is the key that it is mapped to) + the letter
+</code></pre>
+<ul>
+<li>
+<p>acción</p>
+<ul>
+<li>action</li>
+</ul>
+</li>
+<li>
+<p>película de acción</p>
+<ul>
+<li>action movie</li>
+</ul>
+</li>
+<li>
+<p>ver</p>
+<ul>
+<li>to see (verb)</li>
+</ul>
+</li>
+<li>
+<p>¡Quiero ver una buena película de acción!</p>
+<ul>
+<li>I want to see a good action movie!</li>
+</ul>
+</li>
+<li>
+<p>¡Quiero ver una buena película de acción. ¡Vamos al cine!</p>
+<ul>
+<li>I want to see a good action movie. Let's go to the movie theater!</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-11"><a class="header" href="#lesson-11">Lesson 11</a></h2>
+<ul>
+<li>
+<p>parque</p>
+<ul>
+<li>park</li>
+</ul>
+</li>
+<li>
+<p>listo</p>
+<ul>
+<li>ready</li>
+</ul>
+</li>
+<li>
+<p>Estoy lista. ¡Vamos al parque!</p>
+<ul>
+<li>I'm ready. Let's go to the park! (from a female)</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-12"><a class="header" href="#lesson-12">Lesson 12</a></h2>
+<ul>
+<li>
+<p>Hay un restaurante italiano aquí pero es un poco caro.</p>
+<ul>
+<li>There is an italian resaurant here, but it is a bit expensive.</li>
+</ul>
+</li>
+<li>
+<p>italiano</p>
+<ul>
+<li>Italian</li>
+</ul>
+</li>
+<li>
+<p>aquí</p>
+<ul>
+<li>here</li>
+</ul>
+</li>
+<li>
+<p>Hay un restaurante italiano aquí.</p>
+<ul>
+<li>There is an Italian restaurant here.</li>
+</ul>
+</li>
+<li>
+<p>un poco</p>
+<ul>
+<li>a little bit</li>
+</ul>
+</li>
+<li>
+<p>caro</p>
+<ul>
+<li>expensive</li>
+</ul>
+</li>
+<li>
+<p>un poco caro</p>
+<ul>
+<li>a little bit expensive</li>
+</ul>
+</li>
+<li>
+<p>Pero es un poco caro</p>
+<ul>
+<li>But it's a bit expensive</li>
+</ul>
+</li>
+<li>
+<p>comida</p>
+<ul>
+<li>food</li>
+</ul>
+</li>
+<li>
+<p>La comida es buena</p>
+<ul>
+<li>The food is good</li>
+</ul>
+</li>
+<li>
+<p>Hay un restaurante italiano cerca de aquí. La comida es buena pero es un poco caro.</p>
+<ul>
+<li>There is an Italian restaurant near here. The food is good, but it is a bit expensive.</li>
+</ul>
+</li>
+<li>
+<p>grande</p>
+<ul>
+<li>big</li>
+</ul>
+</li>
+<li>
+<p>Ese restaurante italiano es grande y la comida es buena, pero no está cerca de aquí.</p>
+<ul>
+<li>That Italian restaurant is big and the food is good, but it's not near here.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+You use `cerca` to say that something is close as in `Está cerca` (it is close). When you want to express that a place is near another place, you put `de` after `cerca` as in `cerca de aquí` (near here).
+</code></pre>
+<ul>
+<li>
+<p>Hay un cine a sies kilómetros de aquí.</p>
+<ul>
+<li>There's a movie theater six kilometers from here.</li>
+</ul>
+</li>
+<li>
+<p>peligroso</p>
+<ul>
+<li>dangerous</li>
+</ul>
+</li>
+<li>
+<p>zona</p>
+<ul>
+<li>zone</li>
+</ul>
+</li>
+<li>
+<p>una zona peligrosa</p>
+<ul>
+<li>a dangerous zone</li>
+</ul>
+</li>
+<li>
+<p>Está en una zona peligrosa</p>
+<ul>
+<li>It's in a dangerous zone</li>
+</ul>
+</li>
+<li>
+<p>Hay un cine a seis kilómetros de aquí pero está en una zona peligrosa.</p>
+<ul>
+<li>There's a movie theater six kilometers from here, but it's in a dangerous zone.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-13"><a class="header" href="#lesson-13">Lesson 13</a></h2>
+<ul>
+<li>
+<p>lleno de gente</p>
+<ul>
+<li>crowed (full of people)</li>
+</ul>
+</li>
+<li>
+<p>Sábado</p>
+<ul>
+<li>Saturday</li>
+</ul>
+</li>
+<li>
+<p>los sábados</p>
+<ul>
+<li>on Saturdays</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+To express that an activity is repeated several times or that it is always performed on a certain day of the week, we use th eplural form of the day. For instance, to say that a place is open on Saturday (meaning every Saturday), you say `Está abierto los sábados`.
+</code></pre>
+<ul>
+<li>
+<p>Está lleno de gente lost sábados.</p>
+<ul>
+<li>It is crowded on Saturdays.</li>
+</ul>
+</li>
+<li>
+<p>Hay un cine a seis kilómetros de aquí pero está lleno de gente lost sábados.</p>
+<ul>
+<li>There's a movie theater six kilometers from here but it is crowded on Saturdays.</li>
+</ul>
+</li>
+<li>
+<p>Ese restaurante italiano es grande y la comida es buena, pero no está cerca de aquí.</p>
+<ul>
+<li>That Italian restaurant is big and the food is good, but it's not near here.</li>
+</ul>
+</li>
+<li>
+<p>cafetería</p>
+<ul>
+<li>cafe</li>
+</ul>
+</li>
+<li>
+<p>la cafetería del centro comercial.</p>
+<ul>
+<li>The cafe at the mall</li>
+</ul>
+</li>
+<li>
+<p>ruidoso</p>
+<ul>
+<li>noisy</li>
+</ul>
+</li>
+<li>
+<p>La cafetería del centro comercial es ruidosa.</p>
+<ul>
+<li>The cafe at the mall is noisy</li>
+</ul>
+</li>
+<li>
+<p>por la tarde</p>
+<ul>
+<li>in the afternoon</li>
+</ul>
+</li>
+<li>
+<p>La cafetería del centro comercial as ruidosa y está llena de gente por la tarde.</p>
+<ul>
+<li>The cafe at the mall is noisy and is crowded in the afternoon.</li>
+</ul>
+</li>
+<li>
+<p>pequeño</p>
+<ul>
+<li>small</li>
+</ul>
+</li>
+<li>
+<p>La cafetería del centro comercial es pequeña pero no es ruidosa.</p>
+<ul>
+<li>The cafe at the mall is small but it is not noisy.</li>
+</ul>
+</li>
+</ul>
+<h2 id="listening"><a class="header" href="#listening">Listening</a></h2>
+<ul>
+<li>
+<p>amable</p>
+<ul>
+<li>kind</li>
+</ul>
+</li>
+<li>
+<p>ayuda</p>
+<ul>
+<li>help</li>
+</ul>
+</li>
+<li>
+<p>banco</p>
+<ul>
+<li>bank</li>
+</ul>
+</li>
+<li>
+<p>biblioteca</p>
+<ul>
+<li>library</li>
+</ul>
+</li>
+<li>
+<p>ciudad</p>
+<ul>
+<li>city</li>
+</ul>
+</li>
+<li>
+<p>nuevo</p>
+<ul>
+<li>new</li>
+</ul>
+</li>
+</ul>
+<h2 id="reading"><a class="header" href="#reading">Reading</a></h2>
+<ul>
+<li>
+<p>abierta</p>
+<ul>
+<li>open</li>
+</ul>
+</li>
+<li>
+<p>aeropuerto</p>
+<ul>
+<li>airport</li>
+</ul>
+</li>
+<li>
+<p>cuadras</p>
+<ul>
+<li>blocks</li>
+</ul>
+</li>
+<li>
+<p>desde</p>
+<ul>
+<li>from</li>
+</ul>
+</li>
+<li>
+<p>todo</p>
+<ul>
+<li>all</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="currency-and-counting"><a class="header" href="#currency-and-counting">Currency and Counting</a></h1>
+<h2 id="lesson-1"><a class="header" href="#lesson-1">Lesson 1</a></h2>
+<ul>
+<li>
+<p>¿Tiene mapas?</p>
+<ul>
+<li>Do you have maps</li>
+</ul>
+</li>
+<li>
+<p>tener</p>
+<ul>
+<li>to have (verb)</li>
+</ul>
+</li>
+<li>
+<p>tiene</p>
+<ul>
+<li>(you) have (formal)</li>
+</ul>
+</li>
+<li>
+<p>Tengo un mapa</p>
+<ul>
+<li>I have one map</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Uno (one) is only used when we count numbers. To say "one" followed by a noun, as in "one map", you use the singular article un or una.
+</code></pre>
+<ul>
+<li>
+<p>por allí</p>
+<ul>
+<li>over there</li>
+</ul>
+</li>
+<li>
+<p>Los mapas están por allí</p>
+<ul>
+<li>The maps are over there.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Did you use the correct article los? Remember that although mapa ends in -a, it is a masculine noun.
+</code></pre>
+<ul>
+<li>
+<p>Aquí tiene</p>
+<ul>
+<li>Here you are (formal)</li>
+</ul>
+</li>
+<li>
+<p>postal</p>
+<ul>
+<li>postcard</li>
+</ul>
+</li>
+<li>
+<p>Tengo tres postales</p>
+<ul>
+<li>I have three postcards</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+In Spanish, to make the plural of a noun that ends with a consonant, you have to add -es to the end of the noun. That's why the plural of postal is postales.
+</code></pre>
+<ul>
+<li>
+<p>Las postales están aquí y los mapas están por allí.</p>
+<ul>
+<li>The postcards are here, and the maps are over there.</li>
+</ul>
+</li>
+<li>
+<p>¿Tiene más mapas?</p>
+<ul>
+<li>Do you have more maps?</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Up to now you had learned that poco means "a little bit." However, when it is used in plural, pocos, it means "few" or "a few." You can say Estoy un poco cansado (I'm a little bit tired) and use poco in the singular. Or Tengo pocos amigos (I have a few friends), and use pocos in the plural form.
+</code></pre>
+<ul>
+<li>
+<p>pocos mapas</p>
+<ul>
+<li>a few maps</li>
+</ul>
+</li>
+<li>
+<p>pocas postales</p>
+<ul>
+<li>a few postcards</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Poco also needs to agree in gender with the noun. Therefore, here you say pocas postales instead of *pocos postales.
+</code></pre>
+<ul>
+<li>
+<p>Tengo pocas postales y pocos mapas.</p>
+<ul>
+<li>I have a few postcards and a few maps.</li>
+</ul>
+</li>
+<li>
+<p>Quiero más postales de México.</p>
+</li>
+<li>
+<p>I want more postcards from Mexico</p>
+</li>
+<li>
+<p>Tengo cuatro postales más.</p>
+<ul>
+<li>I have four more postcards</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-2"><a class="header" href="#lesson-2">Lesson 2</a></h2>
+<ul>
+<li>
+<p>algo más</p>
+<ul>
+<li>anything else</li>
+</ul>
+</li>
+<li>
+<p>quiere</p>
+<ul>
+<li>(you) want (formal)</li>
+</ul>
+</li>
+<li>
+<p>¿Quiere algo más?</p>
+<ul>
+<li>Do you want anything else?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-3"><a class="header" href="#lesson-3">Lesson 3</a></h2>
+<ul>
+<li>
+<p>¿Cuánto cuesta?</p>
+<ul>
+<li>How much does it cost?</li>
+</ul>
+</li>
+<li>
+<p>cuánto</p>
+<ul>
+<li>how much</li>
+</ul>
+</li>
+<li>
+<p>costar</p>
+<ul>
+<li>to cost (verb)</li>
+</ul>
+</li>
+<li>
+<p>cuesta</p>
+<ul>
+<li>(it) costs</li>
+</ul>
+</li>
+<li>
+<p>¿Cuánto es?</p>
+<ul>
+<li>How much is it?</li>
+</ul>
+</li>
+<li>
+<p>boleto</p>
+<ul>
+<li>ticket</li>
+</ul>
+</li>
+<li>
+<p>cuestan</p>
+<ul>
+<li>they cost</li>
+</ul>
+</li>
+<li>
+<p>¿Cuánto cuestan tres boletos?</p>
+<ul>
+<li>How much do three tickets cost?</li>
+</ul>
+</li>
+<li>
+<p>este</p>
+<ul>
+<li>this</li>
+</ul>
+</li>
+<li>
+<p>libro</p>
+<ul>
+<li>book</li>
+</ul>
+</li>
+<li>
+<p>¿Cuánto cuesta este libro?</p>
+<ul>
+<li>How much does this book cost?</li>
+</ul>
+</li>
+<li>
+<p>estos</p>
+<ul>
+<li>these</li>
+</ul>
+</li>
+<li>
+<p>¿Cuánto cuestan estos?</p>
+<ul>
+<li>How much do these cost?</li>
+</ul>
+</li>
+<li>
+<p>dinero</p>
+<ul>
+<li>money</li>
+</ul>
+</li>
+<li>
+<p>¿Cuánto dinero tiene?</p>
+<ul>
+<li>How much money do you have?</li>
+</ul>
+</li>
+<li>
+<p>mucho</p>
+<ul>
+<li>a lot</li>
+</ul>
+</li>
+<li>
+<p>No tengo mucho dinero</p>
+<ul>
+<li>I don't have a lot of money.</li>
+</ul>
+</li>
+<li>
+<p>cuántos</p>
+<ul>
+<li>how many</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Remember that cuántos has to agree with the noun it modifies.
+</code></pre>
+<ul>
+<li>¿Cuántas postales quiere?
+<ul>
+<li>How many postcards do you want?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-4"><a class="header" href="#lesson-4">Lesson 4</a></h2>
+<ul>
+<li>
+<p>Cuesta cinco pesos con cincuenta centavos.</p>
+<ul>
+<li>It costs five pesos and fifty cents.</li>
+</ul>
+</li>
+<li>
+<p>peso</p>
+<ul>
+<li>peso</li>
+</ul>
+</li>
+<li>
+<p>cinco pesos</p>
+<ul>
+<li>five pesos</li>
+</ul>
+</li>
+<li>
+<p>cincuenta</p>
+<ul>
+<li>fifty</li>
+</ul>
+</li>
+<li>
+<p>centavo</p>
+<ul>
+<li>cent</li>
+</ul>
+</li>
+<li>
+<p>cincuenta centavos</p>
+<ul>
+<li>50 cents</li>
+</ul>
+</li>
+<li>
+<p>con</p>
+<ul>
+<li>with</li>
+</ul>
+</li>
+<li>
+<p>cinco pesos con cincuenta centavos</p>
+<ul>
+<li>5 pesos and 50 cents</li>
+</ul>
+</li>
+<li>
+<p>cargador</p>
+<ul>
+<li>charger</li>
+</ul>
+</li>
+<li>
+<p>once (11)</p>
+<ul>
+<li>eleven</li>
+</ul>
+</li>
+<li>
+<p>el cargador cuesta once pesos.</p>
+<ul>
+<li>The charger costs 11 pesos</li>
+</ul>
+</li>
+<li>
+<p>tarjeta SIM</p>
+<ul>
+<li>SIM card</li>
+</ul>
+</li>
+<li>
+<p>La tarjeta SIM cuesta dos pesos.</p>
+<ul>
+<li>The SIM card costs 2 pesos.</li>
+</ul>
+</li>
+<li>
+<p>El cargador cuesta once pesos y la terjeta SIM dos.</p>
+<ul>
+<li>The charger costs 11 pesos and the SIM card 2</li>
+</ul>
+</li>
+<li>
+<p>trece (13)</p>
+<ul>
+<li>thirteen</li>
+</ul>
+</li>
+<li>
+<p>total</p>
+<ul>
+<li>total</li>
+</ul>
+</li>
+<li>
+<p>Es un total de 13 pesos.</p>
+<ul>
+<li>It's a total of 13 pesos.</li>
+</ul>
+</li>
+<li>
+<p>más (+)</p>
+<ul>
+<li>plus</li>
+</ul>
+</li>
+<li>
+<p>once pesos más dos pesos es un total de trece pesos.</p>
+<ul>
+<li>11 pesos plus 2 peses is a total of 13 pesos</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-5"><a class="header" href="#lesson-5">Lesson 5</a></h2>
+<ul>
+<li>
+<p>repelente de insectos</p>
+<ul>
+<li>insect repellent</li>
+</ul>
+</li>
+<li>
+<p>El repelente de insector cuesta seis pesos.</p>
+<ul>
+<li>The insect repellent costs 6 pesos.</li>
+</ul>
+</li>
+<li>
+<p>por (X)</p>
+<ul>
+<li>times (multiplication)</li>
+</ul>
+</li>
+<li>
+<p>seis por dos</p>
+<ul>
+<li>6 times 2</li>
+</ul>
+</li>
+<li>
+<p>doce (12)</p>
+<ul>
+<li>twelve</li>
+</ul>
+</li>
+<li>
+<p>seis pesos por dos son doce pesos.</p>
+<ul>
+<li>6 pesos times 2 are 12 pesos</li>
+</ul>
+</li>
+<li>
+<p>cuaderno</p>
+<ul>
+<li>notebook</li>
+</ul>
+</li>
+<li>
+<p>cada uno</p>
+<ul>
+<li>each</li>
+</ul>
+</li>
+<li>
+<p>El cuaderno cuesta siete peses cada uno</p>
+<ul>
+<li>The notebook costs 7 pesos each</li>
+</ul>
+</li>
+<li>
+<p>catorce (14)</p>
+<ul>
+<li>fourteen</li>
+</ul>
+</li>
+<li>
+<p>El cuaderno cuesta siets pesos cada uno. Siete por dos es catorce.</p>
+<ul>
+<li>The notebook costs 7 pesos each. 7 times 2 is 14.</li>
+</ul>
+</li>
+<li>
+<p>dividido por (:)</p>
+<ul>
+<li>divided by (/)</li>
+</ul>
+</li>
+<li>
+<p>Catorce dividido por dos es siete. Cada cuaderno cuesta siete pesos</p>
+<ul>
+<li>14 divided by 2 is 7. Each notebook costs 7 pesos.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-6"><a class="header" href="#lesson-6">Lesson 6</a></h2>
+<ul>
+<li>
+<p>menos (-)</p>
+<ul>
+<li>minus (-)</li>
+</ul>
+</li>
+<li>
+<p>quince (15)</p>
+<ul>
+<li>fifteen</li>
+</ul>
+</li>
+<li>
+<p>quince pesos menos catorce peses es un peso.</p>
+<ul>
+<li>15 peses minus 14 pesos is 1 peso</li>
+</ul>
+</li>
+<li>
+<p>cambio</p>
+<ul>
+<li>change (money change)</li>
+</ul>
+</li>
+<li>
+<p>Su cambio es un peso</p>
+<ul>
+<li>Your change is 1 peso</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+The Spanish number from 16-29 do not follow the regular rule for forming numbers, but there is still a trick to remembering them. They are actually contractions! For example, 16 is diez (ten) and sies (six), dieciseis. And, 21 is viente (20) and uno (one), vientiuno. Remember this rule when saying the following numbers!
+</code></pre>
+<ul>
+<li>
+<p>Aquí está su cambio, dieciseite pesos.</p>
+<ul>
+<li>Here's your change, 17 pesos.</li>
+</ul>
+</li>
+<li>
+<p>diecinueve</p>
+<ul>
+<li>19</li>
+</ul>
+</li>
+<li>
+<p>El cuaderno y el repelente de insectos cuestan diecinueve pesos.</p>
+<ul>
+<li>The notebook and the insect repellent cost 19 pesos.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-7"><a class="header" href="#lesson-7">Lesson 7</a></h2>
+<ul>
+<li>
+<p>¿Le gustaría comprar uno?</p>
+<ul>
+<li>Would you like to buy one?</li>
+</ul>
+</li>
+<li>
+<p>gustar</p>
+<ul>
+<li>to like (verb)</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar note
+
+In Spanish, you don't need to use personal subject pronouns because the verb ending tells who you are talking about. However, in verbs such as, gustar (to like) we nned to accompany the verb with an object pronoun. For example, (a mí) me gusta, I like; (a él/ella) le gusta, he/she likes; (a ti) te gusta, you like (informal), and so on.
+</code></pre>
+<ul>
+<li>
+<p>le gusta</p>
+<ul>
+<li>you like (formal)</li>
+</ul>
+</li>
+<li>
+<p>le gustaría</p>
+</li>
+<li>
+<p>you would like (formal)</p>
+</li>
+<li>
+<p>¿Le gustaría ...?</p>
+<ul>
+<li>Would you like ... ? (formal)</li>
+</ul>
+</li>
+<li>
+<p>comprar</p>
+<ul>
+<li>to buy (verb)</li>
+</ul>
+</li>
+<li>
+<p>¿Le gustaría comprar...?</p>
+<ul>
+<li>Would you like to buy...?</li>
+</ul>
+</li>
+<li>
+<p>¿Le gustaría comparar uno?</p>
+<ul>
+<li>Would you like to buy one?</li>
+</ul>
+</li>
+<li>
+<p>zapato</p>
+<ul>
+<li>shoe</li>
+</ul>
+</li>
+<li>
+<p>estos zapatos</p>
+<ul>
+<li>these shoes</li>
+</ul>
+</li>
+<li>
+<p>ver</p>
+<ul>
+<li>to see (verb)</li>
+</ul>
+</li>
+<li>
+<p>¿Le gustaría ver estos zapatos?</p>
+<ul>
+<li>Would you like to see these shoes?</li>
+</ul>
+</li>
+<li>
+<p>me gustaría</p>
+<ul>
+<li>I would like</li>
+</ul>
+</li>
+<li>
+<p>esos</p>
+<ul>
+<li>those</li>
+</ul>
+</li>
+<li>
+<p>No. Me gustaría ver esos zapatos, por favor.</p>
+<ul>
+<li>No. I would like to see those shoes, please.</li>
+</ul>
+</li>
+<li>
+<p>te gustaría</p>
+<ul>
+<li>you would like (informal)</li>
+</ul>
+</li>
+<li>
+<p>camiseta</p>
+<ul>
+<li>T-shirt</li>
+</ul>
+</li>
+<li>
+<p>¿Te gustaría comprar esta camiseta?</p>
+<ul>
+<li>Would you like to buy this T-shirt? (informal)</li>
+</ul>
+</li>
+<li>
+<p>ese</p>
+<ul>
+<li>that</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammer Note
+
+Like adjectives and other describing words in Spanish, "this," "that," "these," and "those" also need to agree with the gender of the noun they describe.
+</code></pre>
+<ul>
+<li>esa camiseta
+<ul>
+<li>that T-shirt</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-8-1"><a class="header" href="#lesson-8-1">Lesson 8</a></h2>
+<ul>
+<li>
+<p>negro</p>
+<ul>
+<li>black</li>
+</ul>
+</li>
+<li>
+<p>No me gustaría comprar esa camisete negra</p>
+<ul>
+<li>I wouldn't like to buy that black T-shirt</li>
+</ul>
+</li>
+<li>
+<p>tienda</p>
+<ul>
+<li>store</li>
+</ul>
+</li>
+<li>
+<p>ropa</p>
+<ul>
+<li>clothes</li>
+</ul>
+</li>
+<li>
+<p>tienda de ropa</p>
+<ul>
+<li>clothing store</li>
+</ul>
+</li>
+<li>
+<p>ir
+-to go (verb)</p>
+</li>
+<li>
+<p>¿Te gustaría ir a la tienda de ropa?</p>
+<ul>
+<li>Would you like to go to the clothing store? (informal)</li>
+</ul>
+</li>
+<li>
+<p>zapatería</p>
+<ul>
+<li>shoe store</li>
+</ul>
+</li>
+<li>
+<p>¿Te gustaría comprar zapatos de esa zapatería?</p>
+<ul>
+<li>Would you like to buy shoes from that shoe store?</li>
+</ul>
+</li>
+<li>
+<p>¿Te gustaría comprar esta camiesta?</p>
+<ul>
+<li>Would you like to by this T-shirt</li>
+</ul>
+</li>
+<li>
+<p>Me gustaría comprar esos zapatos negros. ¿Cuánto cuestan?</p>
+<ul>
+<li>I would like to buy those black shoes. How much do they cost?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-9"><a class="header" href="#lesson-9">Lesson 9</a></h2>
+<ul>
+<li>
+<p>Deme dos, por favor</p>
+<ul>
+<li>Give me two, please.</li>
+</ul>
+</li>
+<li>
+<p>dar</p>
+<ul>
+<li>to give (verb)</li>
+</ul>
+</li>
+<li>
+<p>deme</p>
+<ul>
+<li>give me [imperative] (formal)</li>
+</ul>
+</li>
+<li>
+<p>Deme tres mapas, por favor.</p>
+<ul>
+<li>Give me three maps, please</li>
+</ul>
+</li>
+<li>
+<p>me da</p>
+<ul>
+<li>(you) give me (formal)</li>
+</ul>
+</li>
+<li>
+<p>¿Me da un libro, por favor?</p>
+<ul>
+<li>Could you give me a book, please?</li>
+</ul>
+</li>
+<li>
+<p>me das</p>
+<ul>
+<li>(you) give me (informal)</li>
+</ul>
+</li>
+<li>
+<p>marrón</p>
+<ul>
+<li>brown</li>
+</ul>
+</li>
+<li>
+<p>¿Me das esos zapatos marrones?</p>
+<ul>
+<li>Could you give me those brown shoes?</li>
+</ul>
+</li>
+<li>
+<p>nos da</p>
+<ul>
+<li>(you) give us (formal)</li>
+</ul>
+</li>
+<li>
+<p>¿Nos da un mapa de México, por favor?</p>
+<ul>
+<li>Could you give us a map of Mexico, please?</li>
+</ul>
+</li>
+<li>
+<p>¡Por supuesto!</p>
+<ul>
+<li>Of course!</li>
+</ul>
+</li>
+<li>
+<p>¡Por supuesto! Aquí tiene.</p>
+<ul>
+<li>Of course! Here you are.</li>
+</ul>
+</li>
+</ul>
+<h2 id="listening-1"><a class="header" href="#listening-1">Listening</a></h2>
+<ul>
+<li>
+<p>atender</p>
+<ul>
+<li>to help/ to attend to</li>
+</ul>
+</li>
+<li>
+<p>Entonces</p>
+<ul>
+<li>So/Then</li>
+</ul>
+</li>
+<li>
+<p>estante</p>
+<ul>
+<li>shelf</li>
+</ul>
+</li>
+<li>
+<p>macadores</p>
+<ul>
+<li>markers</li>
+</ul>
+</li>
+<li>
+<p>Sur</p>
+<ul>
+<li>south</li>
+</ul>
+</li>
+<li>
+<p>unas</p>
+<ul>
+<li>some</li>
+</ul>
+</li>
+<li>
+<p>varios</p>
+<ul>
+<li>various</li>
+</ul>
+</li>
+</ul>
+<h2 id="reading-1"><a class="header" href="#reading-1">Reading</a></h2>
+<ul>
+<li>
+<p>de oferta</p>
+<ul>
+<li>on sale</li>
+</ul>
+</li>
+<li>
+<p>oferta</p>
+<ul>
+<li>offer</li>
+</ul>
+</li>
+<li>
+<p>precio</p>
+<ul>
+<li>price</li>
+</ul>
+</li>
+<li>
+<p>si</p>
+<ul>
+<li>if</li>
+</ul>
+</li>
+<li>
+<p>tiene suerte</p>
+<ul>
+<li>(you) are lucky</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="food-and-drink-culture"><a class="header" href="#food-and-drink-culture">Food and Drink Culture</a></h1>
+<h2 id="lesson-1-1"><a class="header" href="#lesson-1-1">Lesson 1</a></h2>
+<ul>
+<li>
+<p>¿Está listo para ordenar?</p>
+<ul>
+<li>Are you ready to order?</li>
+</ul>
+</li>
+<li>
+<p>Está listo</p>
+<ul>
+<li>You are ready</li>
+</ul>
+</li>
+<li>
+<p>ordenar</p>
+<ul>
+<li>to order (verb)</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+In Spanish, we use the preposition _para_ before a verb in the inifinitive to mean "In order to." Remember this for the next slides!
+</code></pre>
+<ul>
+<li>
+<p>listo para ordenar</p>
+<ul>
+<li>ready to order</li>
+</ul>
+</li>
+<li>
+<p>María, ¿estás lista para ordenar?</p>
+<ul>
+<li>María, are you ready to order?</li>
+</ul>
+</li>
+<li>
+<p>están</p>
+<ul>
+<li>(you) are (to a group)</li>
+</ul>
+</li>
+<li>
+<p>¿Están listos para ordenar?</p>
+<ul>
+<li>Are you ready to order? (to a group)</li>
+</ul>
+</li>
+<li>
+<p>esperar</p>
+<ul>
+<li>to wait (verb)</li>
+</ul>
+</li>
+<li>
+<p>espere</p>
+<ul>
+<li>wait [imperative] (formal)</li>
+</ul>
+</li>
+<li>
+<p>¡Espere! No estoy listo para ordenar.</p>
+<ul>
+<li>Wait! I'm not ready para ordenar.</li>
+</ul>
+</li>
+<li>
+<p>Queiro esperar. Mis amigos no están listos para ordenar.</p>
+<ul>
+<li>I want to wait. My friends are not ready to order.</li>
+</ul>
+</li>
+<li>
+<p>ahora</p>
+<ul>
+<li>now</li>
+</ul>
+</li>
+<li>
+<p>estamos</p>
+<ul>
+<li>(we) are</li>
+</ul>
+</li>
+<li>
+<p>¡Ahora estamos listos para ordenar!</p>
+<ul>
+<li>Now we are ready to order!</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-2-1"><a class="header" href="#lesson-2-1">Lesson 2</a></h2>
+<ul>
+<li>
+<p>desayuno</p>
+<ul>
+<li>breakfast</li>
+</ul>
+</li>
+<li>
+<p>para ordenar el desayuno</p>
+<ul>
+<li>to order breakfast</li>
+</ul>
+</li>
+<li>
+<p>¿Está listo para ordenar el desayuno?</p>
+<ul>
+<li>Are you ready to order breakfast? (formal -- to a male)</li>
+</ul>
+</li>
+<li>
+<p>¡Ahora estamos listos para ordenar el desayuno!</p>
+<ul>
+<li>Now we are ready to order breakfast!</li>
+</ul>
+</li>
+<li>
+<p>almuerzo</p>
+<ul>
+<li>lunch</li>
+</ul>
+</li>
+<li>
+<p>quiero ordenar</p>
+<ul>
+<li>I want to order</li>
+</ul>
+</li>
+<li>
+<p>No quiero ordenar el desayuno, quiero ordenar el almuerzo.</p>
+<ul>
+<li>I don't want to order breakfast. I want to order lunch.</li>
+</ul>
+</li>
+<li>
+<p>cena</p>
+<ul>
+<li>dinner</li>
+</ul>
+</li>
+<li>
+<p>Mis amigos no están listos para ordenar la cena.</p>
+<ul>
+<li>My friends are not ready to order dinner.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-3-1"><a class="header" href="#lesson-3-1">Lesson 3</a></h2>
+<ul>
+<li>
+<p>¿Podría traerme la paella?</p>
+<ul>
+<li>Could you bring me the paella?</li>
+</ul>
+</li>
+<li>
+<p>poder</p>
+<ul>
+<li>to be able (verb)</li>
+</ul>
+</li>
+<li>
+<p>podría</p>
+<ul>
+<li>(you) could (formal)</li>
+</ul>
+</li>
+<li>
+<p>traer</p>
+<ul>
+<li>to bring (verb)</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traer ...?</p>
+<ul>
+<li>Could you bring ...?</li>
+</ul>
+</li>
+<li>
+<p>traerme</p>
+<ul>
+<li>to bring me</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traerme...?</p>
+<ul>
+<li>Could you bring me...?</li>
+</ul>
+</li>
+<li>
+<p>paella</p>
+<ul>
+<li>paella</li>
+</ul>
+</li>
+<li>
+<p>botella</p>
+<ul>
+<li>bottle</li>
+</ul>
+</li>
+<li>
+<p>agua</p>
+<ul>
+<li>water</li>
+</ul>
+</li>
+<li>
+<p>botella de agua</p>
+<ul>
+<li>bottle of water</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traerme una botella de agua?</p>
+<ul>
+<li>Could you bring me a bottle of water?</li>
+</ul>
+</li>
+<li>
+<p>jarra</p>
+<ul>
+<li>jug</li>
+</ul>
+</li>
+<li>
+<p>jarra de agua</p>
+<ul>
+<li>jug of water</li>
+</ul>
+</li>
+<li>
+<p>traernos</p>
+<ul>
+<li>to bring us</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traernos una jarra de agua?</p>
+<ul>
+<li>Could you bring us a jug of water?</li>
+</ul>
+</li>
+<li>
+<p>jugo</p>
+<ul>
+<li>juice</li>
+</ul>
+</li>
+<li>
+<p>mango</p>
+<ul>
+<li>mango</li>
+</ul>
+</li>
+<li>
+<p>jugo de mango</p>
+<ul>
+<li>mango juice</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traernos una jarra de jugo de mango?</p>
+<ul>
+<li>Could you bring us a jug of mango juice?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-4-1"><a class="header" href="#lesson-4-1">Lesson 4</a></h2>
+<ul>
+<li>
+<p>piña</p>
+<ul>
+<li>pineapple</li>
+</ul>
+</li>
+<li>
+<p>jugo de piña</p>
+<ul>
+<li>pineapple juice</li>
+</ul>
+</li>
+<li>
+<p>dar</p>
+<ul>
+<li>to give (verb)</li>
+</ul>
+</li>
+<li>
+<p>darme</p>
+<ul>
+<li>to give me</li>
+</ul>
+</li>
+<li>
+<p>vaso</p>
+<ul>
+<li>glass</li>
+</ul>
+</li>
+<li>
+<p>refresco</p>
+<ul>
+<li>soda</li>
+</ul>
+</li>
+<li>
+<p>¿Podría darme un vaso de refresco?</p>
+<ul>
+<li>Could you give me a glass of soda?</li>
+</ul>
+</li>
+<li>
+<p>español</p>
+<ul>
+<li>Spanish</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traerme un poco de paella española?</p>
+<ul>
+<li>Could you bring me a little bit of Spanish paella?</li>
+</ul>
+</li>
+<li>
+<p>salsa</p>
+<ul>
+<li>sauce</li>
+</ul>
+</li>
+<li>
+<p>tomate</p>
+<ul>
+<li>tomato</li>
+</ul>
+</li>
+<li>
+<p>salsa de tomate</p>
+<ul>
+<li>tomato sauce</li>
+</ul>
+</li>
+<li>
+<p>sal</p>
+<ul>
+<li>salt</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Remember that in Spanish `sal` is a feminine noun!
+</code></pre>
+<ul>
+<li>
+<p>no tiene</p>
+<ul>
+<li>(it) doesn't have</li>
+</ul>
+</li>
+<li>
+<p>La salsa no tiene sal. ¿Podría traerme un poco, por favor?</p>
+<ul>
+<li>The sauce doesn't have salt. Could you bring me a little, please?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-5-1"><a class="header" href="#lesson-5-1">Lesson 5</a></h2>
+<ul>
+<li>
+<p>azúcar</p>
+<ul>
+<li>sugar</li>
+</ul>
+</li>
+<li>
+<p>café</p>
+<ul>
+<li>coffee</li>
+</ul>
+</li>
+<li>
+<p>café con azúcar</p>
+<ul>
+<li>coffee with sugar</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traerme un café con azúcar?</p>
+<ul>
+<li>Could you bring me coffee with sugar?</li>
+</ul>
+</li>
+<li>
+<p>hongo</p>
+<ul>
+<li>mushroom</li>
+</ul>
+</li>
+<li>
+<p>sin</p>
+<ul>
+<li>without</li>
+</ul>
+</li>
+<li>
+<p>sin salsa de hongos</p>
+<ul>
+<li>without mushroom sauce</li>
+</ul>
+</li>
+<li>
+<p>pollo</p>
+<ul>
+<li>chicken</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traerme el pollo sin salsa de hongos?</p>
+<ul>
+<li>Could you bring me the chicken without mushroom sauce?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-6-1"><a class="header" href="#lesson-6-1">Lesson 6</a></h2>
+<ul>
+<li>
+<p>¿Qué va a tomar?</p>
+<ul>
+<li>What are you going to drink?</li>
+</ul>
+</li>
+<li>
+<p>tomar</p>
+<ul>
+<li>to drink (verb)</li>
+</ul>
+</li>
+<li>
+<p>ir</p>
+<ul>
+<li>to go (verb)</li>
+</ul>
+</li>
+<li>
+<p>va a</p>
+<ul>
+<li>you are going to (formal)</li>
+</ul>
+</li>
+<li>
+<p>¿Va a tomar?</p>
+<ul>
+<li>Are you going to drink?</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Remember to keep an eye on accent marks! Qué with an accent mark is the question word "what." However, if you remove the accent mark it becomes the word "that," as in "Que tenga un buen día." (That you have a good day.)
+</code></pre>
+<ul>
+<li>
+<p>voy a</p>
+<ul>
+<li>I'm going to</li>
+</ul>
+</li>
+<li>
+<p>Voy a tomar un refresco.</p>
+<ul>
+<li>I'm going to drink a soda.</li>
+</ul>
+</li>
+<li>
+<p>¿Qué va a ordenar?</p>
+<ul>
+<li>What are you going to order?</li>
+</ul>
+</li>
+<li>
+<p>Voy a ordenar los hongos con salsa.</p>
+<ul>
+<li>I'm going to order the mushrooms with sauce.</li>
+</ul>
+</li>
+<li>
+<p>vas a</p>
+<ul>
+<li>you are going to (informal)</li>
+</ul>
+</li>
+<li>
+<p>carne</p>
+<ul>
+<li>meat</li>
+</ul>
+</li>
+<li>
+<p>¿Vas a ordenar carne?</p>
+<ul>
+<li>Are you going to orer meat? (informal)</li>
+</ul>
+</li>
+<li>
+<p>Espere. No voy a ordenar ahora</p>
+<ul>
+<li>Wait. I'm not going to order now.</li>
+</ul>
+</li>
+<li>
+<p>No voy a comer</p>
+<ul>
+<li>I'm not going to eat</li>
+</ul>
+</li>
+<li>
+<p>Estoy listo para ordenar. Voy a comer la carne con hongos.</p>
+<ul>
+<li>I'm ready to order. I'm going to eat the meat with mushrooms.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-7-1"><a class="header" href="#lesson-7-1">Lesson 7</a></h2>
+<ul>
+<li>
+<p>postre</p>
+<ul>
+<li>dessert</li>
+</ul>
+</li>
+<li>
+<p>¿Va a ordenar postre ahora?</p>
+<ul>
+<li>Are you going to order dessert now?</li>
+</ul>
+</li>
+<li>
+<p>restaurante</p>
+<ul>
+<li>restaurant</li>
+</ul>
+</li>
+<li>
+<p>vamos a</p>
+<ul>
+<li>we are going to</li>
+</ul>
+</li>
+<li>
+<p>¿Vamos a ir al restaurante italiano?</p>
+<ul>
+<li>Are we going to go to the Italian restaurant?</li>
+</ul>
+</li>
+<li>
+<p>Vamaos a comer el postre ahora</p>
+<ul>
+<li>We are going to eat the dessert now</li>
+</ul>
+</li>
+<li>
+<p>chocolate</p>
+<ul>
+<li>chocolate</li>
+</ul>
+</li>
+<li>
+<p>postre de chocolate</p>
+<ul>
+<li>chocolate dessert</li>
+</ul>
+</li>
+<li>
+<p>Voy a ordenar el postre de chocolate</p>
+<ul>
+<li>I'm going to order the chocolate dessert</li>
+</ul>
+</li>
+<li>
+<p>almorzar</p>
+<ul>
+<li>to have lunch</li>
+</ul>
+</li>
+<li>
+<p>¿Qué va a almorzar?</p>
+<ul>
+<li>What are you going to have for lunch?</li>
+</ul>
+</li>
+<li>
+<p>cenar</p>
+<ul>
+<li>to have dinner</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note
+
+As you can see, in Spanish we have specific verbs for the three meals. For example, to have breakfast is desayunar; to have lunch is almorzar; and to have dinner is cenar. 
+</code></pre>
+<ul>
+<li>
+<p>¿Va a cenar?</p>
+<ul>
+<li>Are you going to have dinner?</li>
+</ul>
+</li>
+<li>
+<p>¿Vamos a ir al restaurante italiano?</p>
+<ul>
+<li>Are we going to go to the Italian restaurant?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-8-2"><a class="header" href="#lesson-8-2">Lesson 8</a></h2>
+<ul>
+<li>
+<p>solo</p>
+<ul>
+<li>only</li>
+</ul>
+</li>
+<li>
+<p>No voy a cenar, solo voy a ordenar postre.</p>
+<ul>
+<li>I'm not going to have dinner, I'm only going to order dessert.</li>
+</ul>
+</li>
+<li>
+<p>desayunar</p>
+<ul>
+<li>to have breakfast</li>
+</ul>
+</li>
+<li>
+<p>¿Qué va a desayunar?</p>
+<ul>
+<li>What are you going to have for breakfast?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-9-1"><a class="header" href="#lesson-9-1">Lesson 9</a></h2>
+<ul>
+<li>
+<p>Mesera. Tráigame la cuenta, por favor.</p>
+<ul>
+<li>Waitress. Bring me the bill, please.</li>
+</ul>
+</li>
+<li>
+<p>traer</p>
+<ul>
+<li>to bring (verb)</li>
+</ul>
+</li>
+<li>
+<p>traerme</p>
+<ul>
+<li>to bring me</li>
+</ul>
+</li>
+<li>
+<p>tráigame</p>
+<ul>
+<li>bring me [imperative] (formal)</li>
+</ul>
+</li>
+<li>
+<p>cuenta</p>
+<ul>
+<li>bill</li>
+</ul>
+</li>
+<li>
+<p>Tráigame la cuenta</p>
+<ul>
+<li>bring me the bill</li>
+</ul>
+</li>
+<li>
+<p>mesera</p>
+<ul>
+<li>Waitress</li>
+</ul>
+</li>
+<li>
+<p>mesero</p>
+<ul>
+<li>waiter</li>
+</ul>
+</li>
+<li>
+<p>menú</p>
+<ul>
+<li>menu</li>
+</ul>
+</li>
+<li>
+<p>Mesero. Tráigame el menú, por favor.</p>
+<ul>
+<li>Waiter. Bring me the menu, please.</li>
+</ul>
+</li>
+<li>
+<p>ver</p>
+<ul>
+<li>to see (verb)</li>
+</ul>
+</li>
+<li>
+<p>Quiero ver el menú, por favor.</p>
+<ul>
+<li>I want to see the menu, please</li>
+</ul>
+</li>
+<li>
+<p>Claro</p>
+<ul>
+<li>Sure</li>
+</ul>
+</li>
+<li>
+<p>Claro. Aquí tiene</p>
+<ul>
+<li>Sure. Here you are.</li>
+</ul>
+</li>
+<li>
+<p>¡Buen provecho!</p>
+<ul>
+<li>Enjoy!</li>
+</ul>
+</li>
+<li>
+<p>cuchara</p>
+<ul>
+<li>spoon</li>
+</ul>
+</li>
+<li>
+<p>Mesero. Tráigame una cuchara, por favor.</p>
+<ul>
+<li>Waiter. Bring me a spoon, please.</li>
+</ul>
+</li>
+<li>
+<p>cuchillo</p>
+<ul>
+<li>knife</li>
+</ul>
+</li>
+<li>
+<p>tenedor</p>
+<ul>
+<li>fork</li>
+</ul>
+</li>
+<li>
+<p>Mesera. Tráigame un cuchillo y un tenedor, por favor.</p>
+<ul>
+<li>Waitress. Bring me a knife and un tenedor, please.</li>
+</ul>
+</li>
+<li>
+<p>traiga</p>
+<ul>
+<li>bring [imperative] (formal)</li>
+</ul>
+</li>
+<li>
+<p>Traiga una cuchara para mi esposo.</p>
+<ul>
+<li>Bring a spoon for my husband.</li>
+</ul>
+</li>
+<li>
+<p>hijo</p>
+<ul>
+<li>son</li>
+</ul>
+</li>
+<li>
+<p>Mesero. Traiga un tenedor para mi hijo, por favor.</p>
+<ul>
+<li>Waiter. Bring a fork for my son, please.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-11-1"><a class="header" href="#lesson-11-1">Lesson 11</a></h2>
+<ul>
+<li>
+<p>¿Hay una mesa para dos?</p>
+<ul>
+<li>Is there a table for two?</li>
+</ul>
+</li>
+<li>
+<p>hay</p>
+<ul>
+<li>there is/ there are</li>
+</ul>
+</li>
+<li>
+<p>mesa</p>
+<ul>
+<li>table</li>
+</ul>
+</li>
+<li>
+<p>¿Hay una mesa?</p>
+<ul>
+<li>Is there a table?</li>
+</ul>
+</li>
+<li>
+<p>una mesa para dos</p>
+<ul>
+<li>a table for two</li>
+</ul>
+</li>
+<li>
+<p>Buenos días. ¿Hay una mesa para cuatro, por favor?</p>
+<ul>
+<li>Good morning. Is there a table for four, please?</li>
+</ul>
+</li>
+<li>
+<p>¿Hay un baño aquí?</p>
+<ul>
+<li>Is there a bathroom here?</li>
+</ul>
+</li>
+<li>
+<p>gente</p>
+<ul>
+<li>people</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note
+
+For the next slide, bear in mind that the word "gente" (people) is feminine, and it is always used in the singular form. When you say things such as "Our people are happy;" in Spanish you have to use the singular form of the verb: "Nuestra gente está feliz."
+</code></pre>
+<ul>
+<li>
+<p>mucha gente</p>
+<ul>
+<li>a lot of people</li>
+</ul>
+</li>
+<li>
+<p>Hay mucha gente en este restautante.</p>
+<ul>
+<li>There are a lot of people in this restaurant.</li>
+</ul>
+</li>
+<li>
+<p>No hay</p>
+<ul>
+<li>There isn't</li>
+</ul>
+</li>
+<li>
+<p>Lo siento</p>
+<ul>
+<li>I'm sorry</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+You might hear people say "Disculpe" or "Lo siento" to mean "I'm sorry." These two phrases can generally be used interchangeably. However, "Disculpe" can also be used to say "Excuse me", while "Lo siento" is generally only used to say "I'm sorry." It may also help to know that "lo siento" literally means "I feel it" so you use it to offer your condolences or in other similarly serious situations, unlike "Disculpe."
+</code></pre>
+<ul>
+<li>
+<p>Los siento. No hay refrescos</p>
+<ul>
+<li>I'm sorry. There aren't any sodas.</li>
+</ul>
+</li>
+<li>
+<p>No hay más</p>
+<ul>
+<li>There isn't any more</li>
+</ul>
+</li>
+<li>
+<p>No Hay más café. Lo siento</p>
+<ul>
+<li>There isn't any more coffee. I'm sorry.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-12-1"><a class="header" href="#lesson-12-1">Lesson 12</a></h2>
+<ul>
+<li>
+<p>Me guast la pasta con queso rallado.</p>
+<ul>
+<li>I like pasta with grated cheese.</li>
+</ul>
+</li>
+<li>
+<p>gustar</p>
+<ul>
+<li>to like (verb)</li>
+</ul>
+</li>
+<li>
+<p>Me gusta</p>
+<ul>
+<li>I like (it)</li>
+</ul>
+</li>
+<li>
+<p>pasta</p>
+<ul>
+<li>pasta</li>
+</ul>
+</li>
+<li>
+<p>Me gusta la pasta</p>
+<ul>
+<li>I like pasta</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note
+
+Always remember to use the article after the verb gustar when it is followed by a noun!
+</code></pre>
+<ul>
+<li>
+<p>queso</p>
+<ul>
+<li>cheese</li>
+</ul>
+</li>
+<li>
+<p>rallado</p>
+<ul>
+<li>grated</li>
+</ul>
+</li>
+<li>
+<p>pasta con queso rallado</p>
+<ul>
+<li>pasta with grated cheese</li>
+</ul>
+</li>
+<li>
+<p>¿Qué te gustaría comer?</p>
+<ul>
+<li>What would you like to eat? (informal)</li>
+</ul>
+</li>
+<li>
+<p>Me gustaría comer pasta con mucho queso rallado.</p>
+<ul>
+<li>I'd like to eat pasta with a lot of grated cheese.</li>
+</ul>
+</li>
+<li>
+<p>pescado</p>
+<ul>
+<li>fish</li>
+</ul>
+</li>
+<li>
+<p>Me gusta mucho el pescado</p>
+<ul>
+<li>I like fish very much</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note
+
+In English, we can use the verb "to have" to talke about eating and drinking, like in the sentences "I'll have some water," or "I am having pasta for dinner." However, in Spanish you should use the verbs for "to drink" (tomar or beber) or "to eat" (comer) in these kinds of sentences.
+</code></pre>
+<ul>
+<li>¿Te gustaría comer pescado para la cena?
+<ul>
+<li>Would you like to have fish for dinner?</li>
+</ul>
+</li>
+</ul>
+<p>Left off at 33/49</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid.min.js"></script>
+        <script src="mermaid-init.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

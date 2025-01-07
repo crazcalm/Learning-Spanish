@@ -1,0 +1,682 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Places and Directions</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+        <link rel="stylesheet" href="../../mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="lesson-8"><a class="header" href="#lesson-8">Lesson 8</a></h2>
+<ul>
+<li>
+<p>Dolbe</p>
+<ul>
+<li>Turn [imperative] (formal)</li>
+</ul>
+</li>
+<li>
+<p>Doble a la izquierda</p>
+<ul>
+<li>Turn left</li>
+</ul>
+</li>
+<li>
+<p>Doble a la derecha y luego vaya derecho</p>
+<ul>
+<li>Turn right and then go straight</li>
+</ul>
+</li>
+<li>
+<p>Dobla</p>
+<ul>
+<li>Turn [imperative] (informal)</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-10"><a class="header" href="#lesson-10">Lesson 10</a></h2>
+<ul>
+<li>
+<p>¡Vamos a un restaurante tradicional!</p>
+<ul>
+<li>Let's go to a traditional restaurant!</li>
+</ul>
+</li>
+<li>
+<p>¡Vamos!</p>
+<ul>
+<li>Let's go!</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Did you know that we can ise the verb ¡Vamos! in imperative mood to make an invitation, meaning "Come on!" or "Let's go!"?
+</code></pre>
+<ul>
+<li>
+<p>tradicional</p>
+<ul>
+<li>traditional</li>
+</ul>
+</li>
+<li>
+<p>un restaurante tradicional</p>
+<ul>
+<li>a traditional restaurant</li>
+</ul>
+</li>
+<li>
+<p>querer</p>
+<ul>
+<li>To want (verb)</li>
+</ul>
+</li>
+<li>
+<p>quiero</p>
+<ul>
+<li>(I) want</li>
+</ul>
+</li>
+<li>
+<p>comer</p>
+<ul>
+<li>to eat (verb)</li>
+</ul>
+</li>
+<li>
+<p>Quiero comer</p>
+<ul>
+<li>I want to eat.</li>
+</ul>
+</li>
+<li>
+<p>algo</p>
+<ul>
+<li>something</li>
+</ul>
+</li>
+<li>
+<p>diferente</p>
+<ul>
+<li>different</li>
+</ul>
+</li>
+<li>
+<p>Quiero comer algo diferente</p>
+<ul>
+<li>I wan to eat something different</li>
+</ul>
+</li>
+<li>
+<p>internacional</p>
+<ul>
+<li>international</li>
+</ul>
+</li>
+<li>
+<p>restaurante internacional</p>
+<ul>
+<li>International restaurant</li>
+</ul>
+</li>
+<li>
+<p>Queiro comer algo diferente. ¡Vamos a un restaurante internacional!</p>
+<ul>
+<li>I want to eat something different. Let's go to an international restaurant!</li>
+</ul>
+</li>
+<li>
+<p>película</p>
+<ul>
+<li>movie</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish tip">To type Spanish accent marks:
+1. Switch to Spanish input (`Super + Space`)
+2. Type the accent key `[` (That is the key that it is mapped to) + the letter
+</code></pre>
+<ul>
+<li>
+<p>acción</p>
+<ul>
+<li>action</li>
+</ul>
+</li>
+<li>
+<p>película de acción</p>
+<ul>
+<li>action movie</li>
+</ul>
+</li>
+<li>
+<p>ver</p>
+<ul>
+<li>to see (verb)</li>
+</ul>
+</li>
+<li>
+<p>¡Quiero ver una buena película de acción!</p>
+<ul>
+<li>I want to see a good action movie!</li>
+</ul>
+</li>
+<li>
+<p>¡Quiero ver una buena película de acción. ¡Vamos al cine!</p>
+<ul>
+<li>I want to see a good action movie. Let's go to the movie theater!</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-11"><a class="header" href="#lesson-11">Lesson 11</a></h2>
+<ul>
+<li>
+<p>parque</p>
+<ul>
+<li>park</li>
+</ul>
+</li>
+<li>
+<p>listo</p>
+<ul>
+<li>ready</li>
+</ul>
+</li>
+<li>
+<p>Estoy lista. ¡Vamos al parque!</p>
+<ul>
+<li>I'm ready. Let's go to the park! (from a female)</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-12"><a class="header" href="#lesson-12">Lesson 12</a></h2>
+<ul>
+<li>
+<p>Hay un restaurante italiano aquí pero es un poco caro.</p>
+<ul>
+<li>There is an italian resaurant here, but it is a bit expensive.</li>
+</ul>
+</li>
+<li>
+<p>italiano</p>
+<ul>
+<li>Italian</li>
+</ul>
+</li>
+<li>
+<p>aquí</p>
+<ul>
+<li>here</li>
+</ul>
+</li>
+<li>
+<p>Hay un restaurante italiano aquí.</p>
+<ul>
+<li>There is an Italian restaurant here.</li>
+</ul>
+</li>
+<li>
+<p>un poco</p>
+<ul>
+<li>a little bit</li>
+</ul>
+</li>
+<li>
+<p>caro</p>
+<ul>
+<li>expensive</li>
+</ul>
+</li>
+<li>
+<p>un poco caro</p>
+<ul>
+<li>a little bit expensive</li>
+</ul>
+</li>
+<li>
+<p>Pero es un poco caro</p>
+<ul>
+<li>But it's a bit expensive</li>
+</ul>
+</li>
+<li>
+<p>comida</p>
+<ul>
+<li>food</li>
+</ul>
+</li>
+<li>
+<p>La comida es buena</p>
+<ul>
+<li>The food is good</li>
+</ul>
+</li>
+<li>
+<p>Hay un restaurante italiano cerca de aquí. La comida es buena pero es un poco caro.</p>
+<ul>
+<li>There is an Italian restaurant near here. The food is good, but it is a bit expensive.</li>
+</ul>
+</li>
+<li>
+<p>grande</p>
+<ul>
+<li>big</li>
+</ul>
+</li>
+<li>
+<p>Ese restaurante italiano es grande y la comida es buena, pero no está cerca de aquí.</p>
+<ul>
+<li>That Italian restaurant is big and the food is good, but it's not near here.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+You use `cerca` to say that something is close as in `Está cerca` (it is close). When you want to express that a place is near another place, you put `de` after `cerca` as in `cerca de aquí` (near here).
+</code></pre>
+<ul>
+<li>
+<p>Hay un cine a sies kilómetros de aquí.</p>
+<ul>
+<li>There's a movie theater six kilometers from here.</li>
+</ul>
+</li>
+<li>
+<p>peligroso</p>
+<ul>
+<li>dangerous</li>
+</ul>
+</li>
+<li>
+<p>zona</p>
+<ul>
+<li>zone</li>
+</ul>
+</li>
+<li>
+<p>una zona peligrosa</p>
+<ul>
+<li>a dangerous zone</li>
+</ul>
+</li>
+<li>
+<p>Está en una zona peligrosa</p>
+<ul>
+<li>It's in a dangerous zone</li>
+</ul>
+</li>
+<li>
+<p>Hay un cine a seis kilómetros de aquí pero está en una zona peligrosa.</p>
+<ul>
+<li>There's a movie theater six kilometers from here, but it's in a dangerous zone.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-13"><a class="header" href="#lesson-13">Lesson 13</a></h2>
+<ul>
+<li>
+<p>lleno de gente</p>
+<ul>
+<li>crowed (full of people)</li>
+</ul>
+</li>
+<li>
+<p>Sábado</p>
+<ul>
+<li>Saturday</li>
+</ul>
+</li>
+<li>
+<p>los sábados</p>
+<ul>
+<li>on Saturdays</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+To express that an activity is repeated several times or that it is always performed on a certain day of the week, we use th eplural form of the day. For instance, to say that a place is open on Saturday (meaning every Saturday), you say `Está abierto los sábados`.
+</code></pre>
+<ul>
+<li>
+<p>Está lleno de gente lost sábados.</p>
+<ul>
+<li>It is crowded on Saturdays.</li>
+</ul>
+</li>
+<li>
+<p>Hay un cine a seis kilómetros de aquí pero está lleno de gente lost sábados.</p>
+<ul>
+<li>There's a movie theater six kilometers from here but it is crowded on Saturdays.</li>
+</ul>
+</li>
+<li>
+<p>Ese restaurante italiano es grande y la comida es buena, pero no está cerca de aquí.</p>
+<ul>
+<li>That Italian restaurant is big and the food is good, but it's not near here.</li>
+</ul>
+</li>
+<li>
+<p>cafetería</p>
+<ul>
+<li>cafe</li>
+</ul>
+</li>
+<li>
+<p>la cafetería del centro comercial.</p>
+<ul>
+<li>The cafe at the mall</li>
+</ul>
+</li>
+<li>
+<p>ruidoso</p>
+<ul>
+<li>noisy</li>
+</ul>
+</li>
+<li>
+<p>La cafetería del centro comercial es ruidosa.</p>
+<ul>
+<li>The cafe at the mall is noisy</li>
+</ul>
+</li>
+<li>
+<p>por la tarde</p>
+<ul>
+<li>in the afternoon</li>
+</ul>
+</li>
+<li>
+<p>La cafetería del centro comercial as ruidosa y está llena de gente por la tarde.</p>
+<ul>
+<li>The cafe at the mall is noisy and is crowded in the afternoon.</li>
+</ul>
+</li>
+<li>
+<p>pequeño</p>
+<ul>
+<li>small</li>
+</ul>
+</li>
+<li>
+<p>La cafetería del centro comercial es pequeña pero no es ruidosa.</p>
+<ul>
+<li>The cafe at the mall is small but it is not noisy.</li>
+</ul>
+</li>
+</ul>
+<h2 id="listening"><a class="header" href="#listening">Listening</a></h2>
+<ul>
+<li>
+<p>amable</p>
+<ul>
+<li>kind</li>
+</ul>
+</li>
+<li>
+<p>ayuda</p>
+<ul>
+<li>help</li>
+</ul>
+</li>
+<li>
+<p>banco</p>
+<ul>
+<li>bank</li>
+</ul>
+</li>
+<li>
+<p>biblioteca</p>
+<ul>
+<li>library</li>
+</ul>
+</li>
+<li>
+<p>ciudad</p>
+<ul>
+<li>city</li>
+</ul>
+</li>
+<li>
+<p>nuevo</p>
+<ul>
+<li>new</li>
+</ul>
+</li>
+</ul>
+<h2 id="reading"><a class="header" href="#reading">Reading</a></h2>
+<ul>
+<li>
+<p>abierta</p>
+<ul>
+<li>open</li>
+</ul>
+</li>
+<li>
+<p>aeropuerto</p>
+<ul>
+<li>airport</li>
+</ul>
+</li>
+<li>
+<p>cuadras</p>
+<ul>
+<li>blocks</li>
+</ul>
+</li>
+<li>
+<p>desde</p>
+<ul>
+<li>from</li>
+</ul>
+</li>
+<li>
+<p>todo</p>
+<ul>
+<li>all</li>
+</ul>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../book/chapter_3/demonstrative_pronouns.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../mango_languages/chapter_2/currency_and_counting.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../book/chapter_3/demonstrative_pronouns.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../mango_languages/chapter_2/currency_and_counting.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../mermaid.min.js"></script>
+        <script src="../../mermaid-init.js"></script>
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Pronouns</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+        <link rel="stylesheet" href="../../mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="subject-pronouns"><a class="header" href="#subject-pronouns">Subject Pronouns</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Singular</th><th>Plural</th></tr></thead><tbody>
+<tr><td>Yo, I</td><td>Nosotros (as), We</td></tr>
+<tr><td>Tú, You (fam)</td><td>Vosotros (as), (fam.) We?</td></tr>
+<tr><td>Usted, You (pol.)</td><td>Ustedes, You (pol.)</td></tr>
+<tr><td>Él, he</td><td>Ellos, They (masc./mix)</td></tr>
+<tr><td>Ella, she</td><td>Ellas, They (fem.)</td></tr>
+</tbody></table>
+</div>
+<p>The English subject pronoun <em>it</em> has no counterpart in Spanish; it is understood.</p>
+<ul>
+<li>Es una clase muy interesante.
+<ul>
+<li>It is an interesting class.</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-verb-ser"><a class="header" href="#the-verb-ser">The Verb <em>Ser</em></a></h2>
+<p>Spanish uses two verbs to express "to be." Although these verbs have specific uses and can't be interchangeable, we will only learn the verb "ser" in this unit. The present tense of "ser" is irregular, and it must be learned by itself.</p>
+<div class="table-wrapper"><table><thead><tr><th>Ser</th><th>Ser</th></tr></thead><tbody>
+<tr><td>Yo soy</td><td>Nosotros/as Somos</td></tr>
+<tr><td>Tú eres</td><td>Vosotros/as Sois</td></tr>
+<tr><td>Él, Ella es</td><td>Ellos/as Son</td></tr>
+<tr><td>Usted es</td><td>Ustedes Son</td></tr>
+</tbody></table>
+</div>
+<h3 id="1-ser-is-used-to-identify-the-subject"><a class="header" href="#1-ser-is-used-to-identify-the-subject">1. <em>Ser</em> is used to identify the subject</a></h3>
+<ul>
+<li>Yo soy Roberto Sandoval</li>
+<li>Ella es Teresa Molina</li>
+</ul>
+<h3 id="2-ser-descibes-characteristics-that-are-viewed-as-inherent-qualities-of-the-subject"><a class="header" href="#2-ser-descibes-characteristics-that-are-viewed-as-inherent-qualities-of-the-subject">2. <em>Ser</em> descibes characteristics that are viewed as inherent qualities of the subject.</a></h3>
+<ul>
+<li>Mi hermano es simpático y divertido</li>
+<li>Teresa Molina es muy estudiosa</li>
+</ul>
+<h3 id="3-ser-states-origin-and-nationality"><a class="header" href="#3-ser-states-origin-and-nationality">3. <em>Ser</em> states origin and Nationality</a></h3>
+<ul>
+<li>El Doctor Blanco es de Cuba</li>
+<li>Él es cubano</li>
+</ul>
+<h3 id="4-ser-is-also-used-to-tell-time-and-to-express-dates"><a class="header" href="#4-ser-is-also-used-to-tell-time-and-to-express-dates">4. <em>Ser</em> is also used to tell time and to express dates</a></h3>
+<ul>
+<li>¿Qué hora es?
+<ul>
+<li>What time is it?</li>
+</ul>
+</li>
+<li>Son las dos de la tarde
+<ul>
+<li>It is two o'clock in the afternoon</li>
+</ul>
+</li>
+<li>Hoy es el 22 de noviembre
+<ul>
+<li>Today is the 22nd of November</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-with-the-preposition-de-to-express-ownership-and-to-indicate-what-things-are-made-of"><a class="header" href="#5-with-the-preposition-de-to-express-ownership-and-to-indicate-what-things-are-made-of">5. With the preposition <em>de</em> to express ownership and to indicate what things are made of.</a></h3>
+<ul>
+<li>El carro no es de Teresa; es de Carlos.
+<ul>
+<li>It is not Teresa's car; it is Carlos'</li>
+</ul>
+</li>
+<li>La casa de los González no es de madera; es de adobe
+<ul>
+<li>The González's house is not made of wood; it is mode of adobe</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-to-form-impersonal-expressions-like-es-ncessario-es-importante-es-imposible-es-probable-and-so-on"><a class="header" href="#6-to-form-impersonal-expressions-like-es-ncessario-es-importante-es-imposible-es-probable-and-so-on">6. To form impersonal expressions like: es ncessario, es importante, es imposible, es probable, and so on.</a></h3>
+<ul>
+<li>Es necessario estudiar para sacar buenas notas.
+<ul>
+<li>It is necessary to study in order to get good grade.</li>
+</ul>
+</li>
+<li>Es importante hablar español en la clase.
+<ul>
+<li>It is important to speak Spanish in class.</li>
+</ul>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../book/chapter_1/accent_marks.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../book/book_homework/chapter1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../book/chapter_1/accent_marks.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../book/book_homework/chapter1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../mermaid.min.js"></script>
+        <script src="../../mermaid-init.js"></script>
+
+
+    </div>
+    </body>
+</html>

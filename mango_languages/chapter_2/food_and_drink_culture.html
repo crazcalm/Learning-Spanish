@@ -1,0 +1,1199 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Food and Drink Culture</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+        <link rel="stylesheet" href="../../mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="food-and-drink-culture"><a class="header" href="#food-and-drink-culture">Food and Drink Culture</a></h1>
+<h2 id="lesson-1"><a class="header" href="#lesson-1">Lesson 1</a></h2>
+<ul>
+<li>
+<p>¿Está listo para ordenar?</p>
+<ul>
+<li>Are you ready to order?</li>
+</ul>
+</li>
+<li>
+<p>Está listo</p>
+<ul>
+<li>You are ready</li>
+</ul>
+</li>
+<li>
+<p>ordenar</p>
+<ul>
+<li>to order (verb)</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+In Spanish, we use the preposition _para_ before a verb in the inifinitive to mean "In order to." Remember this for the next slides!
+</code></pre>
+<ul>
+<li>
+<p>listo para ordenar</p>
+<ul>
+<li>ready to order</li>
+</ul>
+</li>
+<li>
+<p>María, ¿estás lista para ordenar?</p>
+<ul>
+<li>María, are you ready to order?</li>
+</ul>
+</li>
+<li>
+<p>están</p>
+<ul>
+<li>(you) are (to a group)</li>
+</ul>
+</li>
+<li>
+<p>¿Están listos para ordenar?</p>
+<ul>
+<li>Are you ready to order? (to a group)</li>
+</ul>
+</li>
+<li>
+<p>esperar</p>
+<ul>
+<li>to wait (verb)</li>
+</ul>
+</li>
+<li>
+<p>espere</p>
+<ul>
+<li>wait [imperative] (formal)</li>
+</ul>
+</li>
+<li>
+<p>¡Espere! No estoy listo para ordenar.</p>
+<ul>
+<li>Wait! I'm not ready para ordenar.</li>
+</ul>
+</li>
+<li>
+<p>Queiro esperar. Mis amigos no están listos para ordenar.</p>
+<ul>
+<li>I want to wait. My friends are not ready to order.</li>
+</ul>
+</li>
+<li>
+<p>ahora</p>
+<ul>
+<li>now</li>
+</ul>
+</li>
+<li>
+<p>estamos</p>
+<ul>
+<li>(we) are</li>
+</ul>
+</li>
+<li>
+<p>¡Ahora estamos listos para ordenar!</p>
+<ul>
+<li>Now we are ready to order!</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-2"><a class="header" href="#lesson-2">Lesson 2</a></h2>
+<ul>
+<li>
+<p>desayuno</p>
+<ul>
+<li>breakfast</li>
+</ul>
+</li>
+<li>
+<p>para ordenar el desayuno</p>
+<ul>
+<li>to order breakfast</li>
+</ul>
+</li>
+<li>
+<p>¿Está listo para ordenar el desayuno?</p>
+<ul>
+<li>Are you ready to order breakfast? (formal -- to a male)</li>
+</ul>
+</li>
+<li>
+<p>¡Ahora estamos listos para ordenar el desayuno!</p>
+<ul>
+<li>Now we are ready to order breakfast!</li>
+</ul>
+</li>
+<li>
+<p>almuerzo</p>
+<ul>
+<li>lunch</li>
+</ul>
+</li>
+<li>
+<p>quiero ordenar</p>
+<ul>
+<li>I want to order</li>
+</ul>
+</li>
+<li>
+<p>No quiero ordenar el desayuno, quiero ordenar el almuerzo.</p>
+<ul>
+<li>I don't want to order breakfast. I want to order lunch.</li>
+</ul>
+</li>
+<li>
+<p>cena</p>
+<ul>
+<li>dinner</li>
+</ul>
+</li>
+<li>
+<p>Mis amigos no están listos para ordenar la cena.</p>
+<ul>
+<li>My friends are not ready to order dinner.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-3"><a class="header" href="#lesson-3">Lesson 3</a></h2>
+<ul>
+<li>
+<p>¿Podría traerme la paella?</p>
+<ul>
+<li>Could you bring me the paella?</li>
+</ul>
+</li>
+<li>
+<p>poder</p>
+<ul>
+<li>to be able (verb)</li>
+</ul>
+</li>
+<li>
+<p>podría</p>
+<ul>
+<li>(you) could (formal)</li>
+</ul>
+</li>
+<li>
+<p>traer</p>
+<ul>
+<li>to bring (verb)</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traer ...?</p>
+<ul>
+<li>Could you bring ...?</li>
+</ul>
+</li>
+<li>
+<p>traerme</p>
+<ul>
+<li>to bring me</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traerme...?</p>
+<ul>
+<li>Could you bring me...?</li>
+</ul>
+</li>
+<li>
+<p>paella</p>
+<ul>
+<li>paella</li>
+</ul>
+</li>
+<li>
+<p>botella</p>
+<ul>
+<li>bottle</li>
+</ul>
+</li>
+<li>
+<p>agua</p>
+<ul>
+<li>water</li>
+</ul>
+</li>
+<li>
+<p>botella de agua</p>
+<ul>
+<li>bottle of water</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traerme una botella de agua?</p>
+<ul>
+<li>Could you bring me a bottle of water?</li>
+</ul>
+</li>
+<li>
+<p>jarra</p>
+<ul>
+<li>jug</li>
+</ul>
+</li>
+<li>
+<p>jarra de agua</p>
+<ul>
+<li>jug of water</li>
+</ul>
+</li>
+<li>
+<p>traernos</p>
+<ul>
+<li>to bring us</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traernos una jarra de agua?</p>
+<ul>
+<li>Could you bring us a jug of water?</li>
+</ul>
+</li>
+<li>
+<p>jugo</p>
+<ul>
+<li>juice</li>
+</ul>
+</li>
+<li>
+<p>mango</p>
+<ul>
+<li>mango</li>
+</ul>
+</li>
+<li>
+<p>jugo de mango</p>
+<ul>
+<li>mango juice</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traernos una jarra de jugo de mango?</p>
+<ul>
+<li>Could you bring us a jug of mango juice?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-4"><a class="header" href="#lesson-4">Lesson 4</a></h2>
+<ul>
+<li>
+<p>piña</p>
+<ul>
+<li>pineapple</li>
+</ul>
+</li>
+<li>
+<p>jugo de piña</p>
+<ul>
+<li>pineapple juice</li>
+</ul>
+</li>
+<li>
+<p>dar</p>
+<ul>
+<li>to give (verb)</li>
+</ul>
+</li>
+<li>
+<p>darme</p>
+<ul>
+<li>to give me</li>
+</ul>
+</li>
+<li>
+<p>vaso</p>
+<ul>
+<li>glass</li>
+</ul>
+</li>
+<li>
+<p>refresco</p>
+<ul>
+<li>soda</li>
+</ul>
+</li>
+<li>
+<p>¿Podría darme un vaso de refresco?</p>
+<ul>
+<li>Could you give me a glass of soda?</li>
+</ul>
+</li>
+<li>
+<p>español</p>
+<ul>
+<li>Spanish</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traerme un poco de paella española?</p>
+<ul>
+<li>Could you bring me a little bit of Spanish paella?</li>
+</ul>
+</li>
+<li>
+<p>salsa</p>
+<ul>
+<li>sauce</li>
+</ul>
+</li>
+<li>
+<p>tomate</p>
+<ul>
+<li>tomato</li>
+</ul>
+</li>
+<li>
+<p>salsa de tomate</p>
+<ul>
+<li>tomato sauce</li>
+</ul>
+</li>
+<li>
+<p>sal</p>
+<ul>
+<li>salt</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Remember that in Spanish `sal` is a feminine noun!
+</code></pre>
+<ul>
+<li>
+<p>no tiene</p>
+<ul>
+<li>(it) doesn't have</li>
+</ul>
+</li>
+<li>
+<p>La salsa no tiene sal. ¿Podría traerme un poco, por favor?</p>
+<ul>
+<li>The sauce doesn't have salt. Could you bring me a little, please?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-5"><a class="header" href="#lesson-5">Lesson 5</a></h2>
+<ul>
+<li>
+<p>azúcar</p>
+<ul>
+<li>sugar</li>
+</ul>
+</li>
+<li>
+<p>café</p>
+<ul>
+<li>coffee</li>
+</ul>
+</li>
+<li>
+<p>café con azúcar</p>
+<ul>
+<li>coffee with sugar</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traerme un café con azúcar?</p>
+<ul>
+<li>Could you bring me coffee with sugar?</li>
+</ul>
+</li>
+<li>
+<p>hongo</p>
+<ul>
+<li>mushroom</li>
+</ul>
+</li>
+<li>
+<p>sin</p>
+<ul>
+<li>without</li>
+</ul>
+</li>
+<li>
+<p>sin salsa de hongos</p>
+<ul>
+<li>without mushroom sauce</li>
+</ul>
+</li>
+<li>
+<p>pollo</p>
+<ul>
+<li>chicken</li>
+</ul>
+</li>
+<li>
+<p>¿Podría traerme el pollo sin salsa de hongos?</p>
+<ul>
+<li>Could you bring me the chicken without mushroom sauce?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-6"><a class="header" href="#lesson-6">Lesson 6</a></h2>
+<ul>
+<li>
+<p>¿Qué va a tomar?</p>
+<ul>
+<li>What are you going to drink?</li>
+</ul>
+</li>
+<li>
+<p>tomar</p>
+<ul>
+<li>to drink (verb)</li>
+</ul>
+</li>
+<li>
+<p>ir</p>
+<ul>
+<li>to go (verb)</li>
+</ul>
+</li>
+<li>
+<p>va a</p>
+<ul>
+<li>you are going to (formal)</li>
+</ul>
+</li>
+<li>
+<p>¿Va a tomar?</p>
+<ul>
+<li>Are you going to drink?</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+Remember to keep an eye on accent marks! Qué with an accent mark is the question word "what." However, if you remove the accent mark it becomes the word "that," as in "Que tenga un buen día." (That you have a good day.)
+</code></pre>
+<ul>
+<li>
+<p>voy a</p>
+<ul>
+<li>I'm going to</li>
+</ul>
+</li>
+<li>
+<p>Voy a tomar un refresco.</p>
+<ul>
+<li>I'm going to drink a soda.</li>
+</ul>
+</li>
+<li>
+<p>¿Qué va a ordenar?</p>
+<ul>
+<li>What are you going to order?</li>
+</ul>
+</li>
+<li>
+<p>Voy a ordenar los hongos con salsa.</p>
+<ul>
+<li>I'm going to order the mushrooms with sauce.</li>
+</ul>
+</li>
+<li>
+<p>vas a</p>
+<ul>
+<li>you are going to (informal)</li>
+</ul>
+</li>
+<li>
+<p>carne</p>
+<ul>
+<li>meat</li>
+</ul>
+</li>
+<li>
+<p>¿Vas a ordenar carne?</p>
+<ul>
+<li>Are you going to orer meat? (informal)</li>
+</ul>
+</li>
+<li>
+<p>Espere. No voy a ordenar ahora</p>
+<ul>
+<li>Wait. I'm not going to order now.</li>
+</ul>
+</li>
+<li>
+<p>No voy a comer</p>
+<ul>
+<li>I'm not going to eat</li>
+</ul>
+</li>
+<li>
+<p>Estoy listo para ordenar. Voy a comer la carne con hongos.</p>
+<ul>
+<li>I'm ready to order. I'm going to eat the meat with mushrooms.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-7"><a class="header" href="#lesson-7">Lesson 7</a></h2>
+<ul>
+<li>
+<p>postre</p>
+<ul>
+<li>dessert</li>
+</ul>
+</li>
+<li>
+<p>¿Va a ordenar postre ahora?</p>
+<ul>
+<li>Are you going to order dessert now?</li>
+</ul>
+</li>
+<li>
+<p>restaurante</p>
+<ul>
+<li>restaurant</li>
+</ul>
+</li>
+<li>
+<p>vamos a</p>
+<ul>
+<li>we are going to</li>
+</ul>
+</li>
+<li>
+<p>¿Vamos a ir al restaurante italiano?</p>
+<ul>
+<li>Are we going to go to the Italian restaurant?</li>
+</ul>
+</li>
+<li>
+<p>Vamaos a comer el postre ahora</p>
+<ul>
+<li>We are going to eat the dessert now</li>
+</ul>
+</li>
+<li>
+<p>chocolate</p>
+<ul>
+<li>chocolate</li>
+</ul>
+</li>
+<li>
+<p>postre de chocolate</p>
+<ul>
+<li>chocolate dessert</li>
+</ul>
+</li>
+<li>
+<p>Voy a ordenar el postre de chocolate</p>
+<ul>
+<li>I'm going to order the chocolate dessert</li>
+</ul>
+</li>
+<li>
+<p>almorzar</p>
+<ul>
+<li>to have lunch</li>
+</ul>
+</li>
+<li>
+<p>¿Qué va a almorzar?</p>
+<ul>
+<li>What are you going to have for lunch?</li>
+</ul>
+</li>
+<li>
+<p>cenar</p>
+<ul>
+<li>to have dinner</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note
+
+As you can see, in Spanish we have specific verbs for the three meals. For example, to have breakfast is desayunar; to have lunch is almorzar; and to have dinner is cenar. 
+</code></pre>
+<ul>
+<li>
+<p>¿Va a cenar?</p>
+<ul>
+<li>Are you going to have dinner?</li>
+</ul>
+</li>
+<li>
+<p>¿Vamos a ir al restaurante italiano?</p>
+<ul>
+<li>Are we going to go to the Italian restaurant?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-8"><a class="header" href="#lesson-8">Lesson 8</a></h2>
+<ul>
+<li>
+<p>solo</p>
+<ul>
+<li>only</li>
+</ul>
+</li>
+<li>
+<p>No voy a cenar, solo voy a ordenar postre.</p>
+<ul>
+<li>I'm not going to have dinner, I'm only going to order dessert.</li>
+</ul>
+</li>
+<li>
+<p>desayunar</p>
+<ul>
+<li>to have breakfast</li>
+</ul>
+</li>
+<li>
+<p>¿Qué va a desayunar?</p>
+<ul>
+<li>What are you going to have for breakfast?</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-9"><a class="header" href="#lesson-9">Lesson 9</a></h2>
+<ul>
+<li>
+<p>Mesera. Tráigame la cuenta, por favor.</p>
+<ul>
+<li>Waitress. Bring me the bill, please.</li>
+</ul>
+</li>
+<li>
+<p>traer</p>
+<ul>
+<li>to bring (verb)</li>
+</ul>
+</li>
+<li>
+<p>traerme</p>
+<ul>
+<li>to bring me</li>
+</ul>
+</li>
+<li>
+<p>tráigame</p>
+<ul>
+<li>bring me [imperative] (formal)</li>
+</ul>
+</li>
+<li>
+<p>cuenta</p>
+<ul>
+<li>bill</li>
+</ul>
+</li>
+<li>
+<p>Tráigame la cuenta</p>
+<ul>
+<li>bring me the bill</li>
+</ul>
+</li>
+<li>
+<p>mesera</p>
+<ul>
+<li>Waitress</li>
+</ul>
+</li>
+<li>
+<p>mesero</p>
+<ul>
+<li>waiter</li>
+</ul>
+</li>
+<li>
+<p>menú</p>
+<ul>
+<li>menu</li>
+</ul>
+</li>
+<li>
+<p>Mesero. Tráigame el menú, por favor.</p>
+<ul>
+<li>Waiter. Bring me the menu, please.</li>
+</ul>
+</li>
+<li>
+<p>ver</p>
+<ul>
+<li>to see (verb)</li>
+</ul>
+</li>
+<li>
+<p>Quiero ver el menú, por favor.</p>
+<ul>
+<li>I want to see the menu, please</li>
+</ul>
+</li>
+<li>
+<p>Claro</p>
+<ul>
+<li>Sure</li>
+</ul>
+</li>
+<li>
+<p>Claro. Aquí tiene</p>
+<ul>
+<li>Sure. Here you are.</li>
+</ul>
+</li>
+<li>
+<p>¡Buen provecho!</p>
+<ul>
+<li>Enjoy!</li>
+</ul>
+</li>
+<li>
+<p>cuchara</p>
+<ul>
+<li>spoon</li>
+</ul>
+</li>
+<li>
+<p>Mesero. Tráigame una cuchara, por favor.</p>
+<ul>
+<li>Waiter. Bring me a spoon, please.</li>
+</ul>
+</li>
+<li>
+<p>cuchillo</p>
+<ul>
+<li>knife</li>
+</ul>
+</li>
+<li>
+<p>tenedor</p>
+<ul>
+<li>fork</li>
+</ul>
+</li>
+<li>
+<p>Mesera. Tráigame un cuchillo y un tenedor, por favor.</p>
+<ul>
+<li>Waitress. Bring me a knife and un tenedor, please.</li>
+</ul>
+</li>
+<li>
+<p>traiga</p>
+<ul>
+<li>bring [imperative] (formal)</li>
+</ul>
+</li>
+<li>
+<p>Traiga una cuchara para mi esposo.</p>
+<ul>
+<li>Bring a spoon for my husband.</li>
+</ul>
+</li>
+<li>
+<p>hijo</p>
+<ul>
+<li>son</li>
+</ul>
+</li>
+<li>
+<p>Mesero. Traiga un tenedor para mi hijo, por favor.</p>
+<ul>
+<li>Waiter. Bring a fork for my son, please.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-11"><a class="header" href="#lesson-11">Lesson 11</a></h2>
+<ul>
+<li>
+<p>¿Hay una mesa para dos?</p>
+<ul>
+<li>Is there a table for two?</li>
+</ul>
+</li>
+<li>
+<p>hay</p>
+<ul>
+<li>there is/ there are</li>
+</ul>
+</li>
+<li>
+<p>mesa</p>
+<ul>
+<li>table</li>
+</ul>
+</li>
+<li>
+<p>¿Hay una mesa?</p>
+<ul>
+<li>Is there a table?</li>
+</ul>
+</li>
+<li>
+<p>una mesa para dos</p>
+<ul>
+<li>a table for two</li>
+</ul>
+</li>
+<li>
+<p>Buenos días. ¿Hay una mesa para cuatro, por favor?</p>
+<ul>
+<li>Good morning. Is there a table for four, please?</li>
+</ul>
+</li>
+<li>
+<p>¿Hay un baño aquí?</p>
+<ul>
+<li>Is there a bathroom here?</li>
+</ul>
+</li>
+<li>
+<p>gente</p>
+<ul>
+<li>people</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note
+
+For the next slide, bear in mind that the word "gente" (people) is feminine, and it is always used in the singular form. When you say things such as "Our people are happy;" in Spanish you have to use the singular form of the verb: "Nuestra gente está feliz."
+</code></pre>
+<ul>
+<li>
+<p>mucha gente</p>
+<ul>
+<li>a lot of people</li>
+</ul>
+</li>
+<li>
+<p>Hay mucha gente en este restautante.</p>
+<ul>
+<li>There are a lot of people in this restaurant.</li>
+</ul>
+</li>
+<li>
+<p>No hay</p>
+<ul>
+<li>There isn't</li>
+</ul>
+</li>
+<li>
+<p>Lo siento</p>
+<ul>
+<li>I'm sorry</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note:
+
+You might hear people say "Disculpe" or "Lo siento" to mean "I'm sorry." These two phrases can generally be used interchangeably. However, "Disculpe" can also be used to say "Excuse me", while "Lo siento" is generally only used to say "I'm sorry." It may also help to know that "lo siento" literally means "I feel it" so you use it to offer your condolences or in other similarly serious situations, unlike "Disculpe."
+</code></pre>
+<ul>
+<li>
+<p>Los siento. No hay refrescos</p>
+<ul>
+<li>I'm sorry. There aren't any sodas.</li>
+</ul>
+</li>
+<li>
+<p>No hay más</p>
+<ul>
+<li>There isn't any more</li>
+</ul>
+</li>
+<li>
+<p>No Hay más café. Lo siento</p>
+<ul>
+<li>There isn't any more coffee. I'm sorry.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-12"><a class="header" href="#lesson-12">Lesson 12</a></h2>
+<ul>
+<li>
+<p>Me guast la pasta con queso rallado.</p>
+<ul>
+<li>I like pasta with grated cheese.</li>
+</ul>
+</li>
+<li>
+<p>gustar</p>
+<ul>
+<li>to like (verb)</li>
+</ul>
+</li>
+<li>
+<p>Me gusta</p>
+<ul>
+<li>I like (it)</li>
+</ul>
+</li>
+<li>
+<p>pasta</p>
+<ul>
+<li>pasta</li>
+</ul>
+</li>
+<li>
+<p>Me gusta la pasta</p>
+<ul>
+<li>I like pasta</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note
+
+Always remember to use the article after the verb gustar when it is followed by a noun!
+</code></pre>
+<ul>
+<li>
+<p>queso</p>
+<ul>
+<li>cheese</li>
+</ul>
+</li>
+<li>
+<p>rallado</p>
+<ul>
+<li>grated</li>
+</ul>
+</li>
+<li>
+<p>pasta con queso rallado</p>
+<ul>
+<li>pasta with grated cheese</li>
+</ul>
+</li>
+<li>
+<p>¿Qué te gustaría comer?</p>
+<ul>
+<li>What would you like to eat? (informal)</li>
+</ul>
+</li>
+<li>
+<p>Me gustaría comer pasta con mucho queso rallado.</p>
+<ul>
+<li>I'd like to eat pasta with a lot of grated cheese.</li>
+</ul>
+</li>
+<li>
+<p>pescado</p>
+<ul>
+<li>fish</li>
+</ul>
+</li>
+<li>
+<p>Me gusta mucho el pescado</p>
+<ul>
+<li>I like fish very much</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-admonish note">Grammar Note
+
+In English, we can use the verb "to have" to talke about eating and drinking, like in the sentences "I'll have some water," or "I am having pasta for dinner." However, in Spanish you should use the verbs for "to drink" (tomar or beber) or "to eat" (comer) in these kinds of sentences.
+</code></pre>
+<ul>
+<li>¿Te gustaría comer pescado para la cena?
+<ul>
+<li>Would you like to have fish for dinner?</li>
+</ul>
+</li>
+</ul>
+<p>Left off at 33/49</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../mango_languages/chapter_2/currency_and_counting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../mango_languages/chapter_2/currency_and_counting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../mermaid.min.js"></script>
+        <script src="../../mermaid-init.js"></script>
+
+
+    </div>
+    </body>
+</html>
