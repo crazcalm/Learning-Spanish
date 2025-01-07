@@ -22,7 +22,7 @@ jobs:
         with:
           mdbook-version: 'latest'
 
-      - run: mdbook build spanish_101_class/ -d .
+      - run: mdbook build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
