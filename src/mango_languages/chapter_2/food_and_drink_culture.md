@@ -601,4 +601,84 @@ The word "caliente" means "hot," and is used to describe the temperature of obje
 - dobla
   - turn [imperative] (informal)
 
-Left off at 31/48
+- cocinar
+  - to cook (verb)
+
+```admonish note
+Grammar Note
+
+I bet you see the pattern here. If you want to create the informal imperative with verbs ending in -ar, just drop the ending and add -a. Therefore, the imperative form of "doblar" is "dobla". Another way of thinking about this is that for most verbs, you simply use the third person signular conjugation of the verb (he/she/it turns, "dobla")
+```
+
+- concina
+  - cook [imperative] (informal)
+
+- minuto
+  - minute
+
+- Cocina por dos minutos
+  - Cook for 2 minutes
+
+- Cocina los huevos en la sartén caliente por dos minutos.
+  - Cook the eggs in the hot pan for 2 minutes.
+
+- Vierte lost huevos en la sertén caliente
+  - Pour the eggs in the hot pan.
+
+## Lesson 15
+- añadir
+  - to add
+
+- añade
+  - add [imperative] (informal)
+
+```admonish note
+Grammar Note
+
+Do yoy see the pattern? With verbs like "batir" and "añadir", the ending -ir changes to -e in the informal imperative form. Therefore, the informal imperative form of "batir" is "bate" and the one for "añadir" is "añade".
+```
+
+- jamón
+  - ham
+
+- Añade el jamón y el queso
+  - Add the ham and the cheese
+
+- pimienta
+  - pepper
+
+```admonish note
+Grammar Note
+
+Salt is a feminine noun: la sal
+```
+
+- Añade sal y pimienta
+  - Add salt and pepper
+
+- Añade sal y pimienta a los huevos.
+  - Add salt and pepper to the eggs.
+
+- servir
+  - to serve (verb)
+
+- sirve
+  - server [imperative] (informal)
+
+```admonish note
+Grammar Note
+
+Did you say *"serve?" Very close! The stem "e" in this verb changes to "i" when you conjugate it, so it becomes "sirve". But remember that is does not change for "we." So, while you say "sirve" for he/she/it/you (formal) and for commands, "sirves" for "you" informal, "sirvo" for "I", you still say "nosotros servimos" (we serve).
+```
+
+- Sirve los huevos
+  - Serve the eggs
+
+- pan
+  - bread
+
+- Sirve los huevos con pan
+  - Serve the eggs with bread
+
+Left off --> need to start the next chapter.
+
