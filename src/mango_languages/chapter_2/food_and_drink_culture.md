@@ -680,5 +680,3 @@ Did you say *"serve?" Very close! The stem "e" in this verb changes to "i" when 
 - Sirve los huevos con pan
   - Serve the eggs with bread
 
-Left off --> need to start the next chapter.
-

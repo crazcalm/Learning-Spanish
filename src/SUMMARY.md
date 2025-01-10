@@ -34,3 +34,4 @@
     - [Places and Directions](./mango_languages/chapter_2/places_and_directions.md)
 	- [Currency and Counting](./mango_languages/chapter_2/currency_and_counting.md)
 	- [Food and Drink Culture](./mango_languages/chapter_2/food_and_drink_culture.md)
+	- [Transportation and Payment](./mango_languages/chapter_2/transportation_and_payment.md)
