@@ -1,0 +1,379 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Transportation and Payment</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+        <link rel="stylesheet" href="../../mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="transportation-and-payment"><a class="header" href="#transportation-and-payment">Transportation and Payment</a></h1>
+<h2 id="lesson-1"><a class="header" href="#lesson-1">Lesson 1</a></h2>
+<ul>
+<li>
+<p>¿Adónde va?</p>
+<ul>
+<li>Where are you going?</li>
+</ul>
+</li>
+<li>
+<p>adónde</p>
+<ul>
+<li>to where</li>
+</ul>
+</li>
+</ul>
+<div id="admonition-note" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
+<div class="admonition-title">
+<div id="admonition-note-title">
+<p>Note</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-note"></a>
+</div>
+<div>
+<p>Grammar Note</p>
+<p>Pay attention to this new word "adónde" and learn how to differentiate it from "dónde". "Dónde" means "where" and is used to ask questions about the location of something. "Adónde", on the other hand, is the form used to inquire about the destination of someone or something, as in "to where..." Consequently, in Spanish you would say, ¿Adónde vas? (To where are you going?) Therefore, you cannot say, "*To where is the book?" Instead you day, "Where is the book?" (¿Dónde está el libro?).</p>
+</div>
+</div>
+<ul>
+<li>
+<p>ir</p>
+<ul>
+<li>to go</li>
+</ul>
+</li>
+<li>
+<p>va</p>
+<ul>
+<li>(you) go (formal)</li>
+</ul>
+</li>
+<li>
+<p>tener que</p>
+<ul>
+<li>to have to</li>
+</ul>
+</li>
+<li>
+<p>tiene que</p>
+<ul>
+<li>(you) have to (formal)</li>
+</ul>
+</li>
+<li>
+<p>¿Adónde tiene que ir?</p>
+<ul>
+<li>Where do you have to go?</li>
+</ul>
+</li>
+<li>
+<p>tengo que</p>
+<ul>
+<li>(I) have to</li>
+</ul>
+</li>
+<li>
+<p>tomar</p>
+<ul>
+<li>to take (verb)</li>
+</ul>
+</li>
+</ul>
+<div id="admonition-note-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-1-title">
+<div class="admonition-title">
+<div id="admonition-note-1-title">
+<p>Note</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-note-1"></a>
+</div>
+<div>
+<p>Grammar Note</p>
+<p>I bet the word "tomar" rings a bell. That's because in Spanish, the verb "tomar" can either mean "to take" or "to drink". The context will always help you determine which one is being used.</p>
+</div>
+</div>
+<ul>
+<li>
+<p>taxi</p>
+<ul>
+<li>taxi</li>
+</ul>
+</li>
+<li>
+<p>Tengo que tomar un taxi. ¿Adónde tengo que ir?</p>
+<ul>
+<li>I have to take a taxi. Where do I have to go?</li>
+</ul>
+</li>
+<li>
+<p>disponible</p>
+<ul>
+<li>available</li>
+</ul>
+</li>
+<li>
+<p>El taxi está disponible.</p>
+<ul>
+<li>The taxi is available</li>
+</ul>
+</li>
+<li>
+<p>apurado</p>
+<ul>
+<li>in a hurry</li>
+</ul>
+</li>
+<li>
+<p>¡Estoy apurado!</p>
+<ul>
+<li>I'm in a hurry</li>
+</ul>
+</li>
+<li>
+<p>¿Este taxi está disponible? ¡Estoy apurado!</p>
+<ul>
+<li>Is this taxi available? I'm in a hurry!</li>
+</ul>
+</li>
+</ul>
+<h2 id="lesson-2"><a class="header" href="#lesson-2">Lesson 2</a></h2>
+<ul>
+<li>
+<p>quiere</p>
+<ul>
+<li>(you) want (formal)</li>
+</ul>
+</li>
+<li>
+<p>Este taxi está disponible. ¿Adónde quiere ir?</p>
+<ul>
+<li>This taxi is available. Where do you want to go?</li>
+</ul>
+</li>
+<li>
+<p>quieres</p>
+<ul>
+<li>(you) want (informal)</li>
+</ul>
+</li>
+<li>
+<p>tarde</p>
+<ul>
+<li>afternoon</li>
+</ul>
+</li>
+<li>
+<p>Estoy disponible esta tarde. ¿Adónde quieres ir?</p>
+<ul>
+<li>I'm available this afternoon. Where do you want to go?</li>
+</ul>
+</li>
+<li>
+<p>sábado</p>
+<ul>
+<li>Saturday</li>
+</ul>
+</li>
+<li>
+<p>Estoy disonible el sábado cuatro. ¿Adónde quieres ir?</p>
+<ul>
+<li>I'm available on Saturday the 4th. Where do you want to go?</li>
+</ul>
+</li>
+</ul>
+<p>Left off at 22/56</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../mango_languages/chapter_2/food_and_drink_culture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../mango_languages/chapter_2/food_and_drink_culture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../mermaid.min.js"></script>
+        <script src="../../mermaid-init.js"></script>
+
+
+    </div>
+    </body>
+</html>
